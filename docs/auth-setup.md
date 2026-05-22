@@ -99,7 +99,9 @@ SessionStatus.Authenticated  ─►  AuthRepository emits AuthUser
 | Language persistence | `data/locale/LocaleRepository.kt` (DataStore Preferences) |
 | Runtime locale switch | `data/locale/LocalizedContent.kt` (Compose wrapper, no Activity recreate) |
 | Login UI | `ui/screens/login/LoginScreen.kt` + `LoginViewModel.kt` |
-| Home placeholder | `ui/screens/home/HomeScreen.kt` + `HomeViewModel.kt` |
+| Home UI (full SAA dashboard) | `ui/screens/home/HomeScreen.kt` + `HomeViewModel.kt` + `ui/screens/home/components/` |
+| Awards data + repository | `data/awards/AwardsRepository.kt` (Supabase Postgrest, Loading/Empty/Error/Success) |
+| Kudos feature flag | `data/kudos/KudosRepository.kt` (hardcoded `isKudosAvailable = true`) |
 | Language dropdown component | `ui/components/LanguageDropdown.kt` |
 
 ## Test cases mapped
@@ -127,7 +129,12 @@ SessionStatus.Authenticated  ─►  AuthRepository emits AuthUser
 
 ## Known gaps
 
-- The Sun\* Annual Awards logo, background keyvisual, and Root Further wordmark are vector
-  approximations — drop the official PNG assets into `app/src/main/res/drawable-*dpi/` to replace.
 - No splash screen — initial `currentUser` is `null` until Supabase finishes session restore,
   so a brief login flicker can occur. Mitigate with a splash screen if it bothers QA.
+- Home screen destination clicks (Search, Notifications, ABOUT AWARD, ABOUT KUDOS, NavBar tabs,
+  FAB, award details) are no-op — destination screens are not yet built. See
+  `plans/260522-1055-home-screen/clarifications.md`.
+- Local Supabase migration `supabase/migrations/20260522110800_create_awards.sql` + seed
+  `supabase/seeds/common/awards.sql` must be applied via `supabase db reset` after pulling.
+  Both files are inside the `supabase/` tree which is gitignored — copy them across by hand or
+  flip the `.gitignore` rule if you need to share.

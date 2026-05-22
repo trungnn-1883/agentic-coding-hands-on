@@ -4,6 +4,8 @@ import android.content.Context
 import com.learning.agentic_coding.data.auth.AuthRepository
 import com.learning.agentic_coding.data.auth.GoogleSignInHelper
 import com.learning.agentic_coding.data.auth.SupabaseProvider
+import com.learning.agentic_coding.data.awards.AwardsRepository
+import com.learning.agentic_coding.data.kudos.KudosRepository
 import com.learning.agentic_coding.data.locale.LocaleRepository
 
 /**
@@ -16,6 +18,8 @@ class ServiceLocator(applicationContext: Context) {
         supabase = SupabaseProvider.client,
         googleSignInHelper = GoogleSignInHelper(),
     )
+    val awardsRepository: AwardsRepository = AwardsRepository(SupabaseProvider.client)
+    val kudosRepository: KudosRepository = KudosRepository()
 }
 
 internal val Context.serviceLocator: ServiceLocator

@@ -4,6 +4,7 @@ import com.learning.agentic_coding.BuildConfig
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.auth.Auth
 import io.github.jan.supabase.createSupabaseClient
+import io.github.jan.supabase.postgrest.Postgrest
 
 /**
  * App-wide Supabase client. URL + anon key are surfaced through [BuildConfig] from
@@ -16,6 +17,7 @@ object SupabaseProvider {
             supabaseKey = BuildConfig.SUPABASE_ANON_KEY,
         ) {
             install(Auth)
+            install(Postgrest)
         }
     }
 }
