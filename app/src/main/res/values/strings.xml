@@ -1,3 +1,26 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">SAA 2025</string>
+
+    <!-- Login screen (default locale = Vietnamese per design spec) -->
+    <string name="login_root_further">ROOT FURTHER</string>
+    <string name="login_description">Bắt đầu hành trình của bạn cùng SAA 2025. Đăng nhập để khám phá!</string>
+    <string name="login_button_google">LOGIN With Google</string>
+    <string name="login_copyright">Bản quyền thuộc về Sun* © 2025</string>
+
+    <!-- Language dropdown labels (display codes — same across all locales by design) -->
+    <string name="language_code_vn" translatable="false">VN</string>
+    <string name="language_code_en" translatable="false">EN</string>
+    <string name="language_code_ja" translatable="false">JA</string>
+    <string name="language_dropdown_content_description">Chọn ngôn ngữ</string>
+
+    <!-- Auth error messages -->
+    <string name="error_auth_generic">Đăng nhập thất bại. Vui lòng thử lại.</string>
+    <string name="error_auth_cancelled">Bạn đã hủy đăng nhập.</string>
+    <string name="error_auth_no_google_account">Không tìm thấy tài khoản Google trên thiết bị. Hãy thêm tài khoản Google trong Cài đặt và thử lại.</string>
+    <string name="error_auth_network">Lỗi kết nối. Vui lòng kiểm tra mạng và thử lại.</string>
+    <string name="error_invalid_language">Lựa chọn ngôn ngữ không hợp lệ.</string>
+
+    <!-- Home placeholder -->
+    <string name="home_welcome">Xin chào, %1$s</string>
+    <string name="home_logout">Đăng xuất</string>
 </resources>

@@ -33,4 +33,36 @@ google-services.json
 # Android Profiling
 *.hprof
 
-.claude/
+# AI agents files
+.claude/*
+!.claude/settings.json
+.mind.*
+mind.*
+plans/**/*
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+*.log
+
+# env files (can opt-in for committing if needed)
+.env*
+!.env.example
+
+# IDE
+.idea/
+
+# MoMorph / MCP
+.mcp.json
+mcp.json
+
+# misc
+.DS_Store
+*.pem
+
+#supabase
+supabase/
+
+settings.json

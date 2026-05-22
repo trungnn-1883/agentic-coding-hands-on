@@ -7,4 +7,17 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- SAA brand palette (extracted from MoMorph design) -->
+    <color name="saa_bg_dark">#FF00101A</color>
+    <color name="saa_button_yellow">#FFFFE49A</color>
+    <color name="saa_text_on_button">#FF1A1A1A</color>
+    <color name="saa_text_primary">#FFFFFFFF</color>
+    <color name="saa_text_secondary">#CCFFFFFF</color>
+    <color name="saa_dropdown_bg">#CC1A1A1A</color>
+    <color name="saa_dropdown_selected_bg">#33FFFFFF</color>
+    <color name="saa_gradient_orange">#FFE0773C</color>
+    <color name="saa_gradient_purple">#FF4A2E5B</color>
+    <color name="saa_gradient_blue">#FF1B3A6B</color>
+    <color name="saa_error">#FFFF6B6B</color>
 </resources>
