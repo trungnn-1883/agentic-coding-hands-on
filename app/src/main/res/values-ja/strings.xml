@@ -14,6 +14,54 @@
     <string name="error_auth_network">ネットワークエラーです。接続を確認してもう一度お試しください。</string>
     <string name="error_invalid_language">無効な言語の選択です。</string>
 
+    <!-- Home: header -->
+    <string name="home_search_cd">検索</string>
+    <string name="home_notifications_cd">お知らせ</string>
+    <string name="home_logo_cd">Sun* Annual Awards 2025</string>
+
+    <!-- Home: hero -->
+    <string name="home_coming_soon">Coming soon</string>
+    <string name="home_days">DAYS</string>
+    <string name="home_hours">HOURS</string>
+    <string name="home_minutes">MINUTES</string>
+    <string name="home_event_ended">イベント終了</string>
+    <string name="home_event_time_label">日時:</string>
+    <string name="home_event_venue_label">会場:</string>
+    <string name="home_event_date">2026/06/26</string>
+    <string name="home_event_venue">Au Co Art Center</string>
+    <string name="home_livestream_note">Sun* Family の Facebook グループでライブ配信</string>
+    <string name="home_about_award">ABOUT AWARD</string>
+    <string name="home_about_kudos">ABOUT KUDOS</string>
+
+    <!-- Home: theme description -->
+    <string name="home_theme_description">「Root Further」は単なる名前ではなく、すべての Sun* メンバーが目指す精神そのものです。常にあらゆる文脈を深く見つめ、絶え間なく創造し、自ら設けた限界を超えて自分自身を広げていく。色彩理論の比喩を借りれば、赤・黄・青の三原色から、ひとりひとりの創造力でほぼ無限の色を生み出せるように、すべての色相が突破と無限の創造を表しています。</string>
+
+    <!-- Home: awards section -->
+    <string name="home_awards_event_label">Sun* Annual Awards 2025</string>
+    <string name="home_awards_section_title">アワード一覧</string>
+    <string name="home_award_details">詳細</string>
+    <string name="home_awards_empty">アワードはまだありません</string>
+    <string name="home_awards_error">アワードを読み込めませんでした</string>
+    <string name="home_awards_retry">再試行</string>
+
+    <!-- Home: kudos section -->
+    <string name="home_kudos_eyebrow">表彰運動</string>
+    <string name="home_kudos_title">Sun* Kudos</string>
+    <string name="home_kudos_new_badge">SAA 2025 の新企画</string>
+    <string name="home_kudos_description">同僚を讃え、感謝を伝える活動 — すべての Sunner を対象に初めて実施します。2025 年 11 月に主催チームが発表するプラットフォームで実施され、Sun* メンバーは同僚への感謝や讃辞を共有します。Heads Council は受賞者選定の参考資料として活用します。</string>
+    <string name="home_kudos_details">詳細</string>
+    <string name="home_kudos_logo_text" translatable="false">KUDOS</string>
+
+    <!-- Home: bottom navigation -->
+    <string name="home_nav_saa">SAA 2025</string>
+    <string name="home_nav_awards">Awards</string>
+    <string name="home_nav_kudos">Kudos</string>
+    <string name="home_nav_profile">Profile</string>
+
+    <!-- Home: FAB -->
+    <string name="home_fab_pen_cd">Kudos を書く</string>
+    <string name="home_fab_kudos_cd">Kudos フィード</string>
+
     <string name="home_welcome">こんにちは、%1$s さん</string>
     <string name="home_logout">ログアウト</string>
 </resources>

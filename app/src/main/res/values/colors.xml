@@ -14,10 +14,20 @@
     <color name="saa_text_on_button">#FF1A1A1A</color>
     <color name="saa_text_primary">#FFFFFFFF</color>
     <color name="saa_text_secondary">#CCFFFFFF</color>
+    <color name="saa_text_dim">#99FFFFFF</color>
     <color name="saa_dropdown_bg">#CC1A1A1A</color>
     <color name="saa_dropdown_selected_bg">#33FFFFFF</color>
     <color name="saa_gradient_orange">#FFE0773C</color>
     <color name="saa_gradient_purple">#FF4A2E5B</color>
     <color name="saa_gradient_blue">#FF1B3A6B</color>
     <color name="saa_error">#FFFF6B6B</color>
+
+    <!-- Home screen additions -->
+    <color name="saa_countdown_tile_bg">#FF1A1F2E</color>
+    <color name="saa_card_border">#FFD4A946</color>
+    <color name="saa_badge_red">#FFD4271D</color>
+    <color name="saa_kudos_banner_overlay">#CC0A0F18</color>
+    <color name="saa_nav_inactive">#80FFFFFF</color>
+    <color name="saa_divider">#33FFFFFF</color>
+    <color name="saa_kudos_new_badge_text">#FFD4A946</color>
 </resources>

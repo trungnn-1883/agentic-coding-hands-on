@@ -14,6 +14,54 @@
     <string name="error_auth_network">Network error. Please check your connection and try again.</string>
     <string name="error_invalid_language">Invalid language selection.</string>
 
+    <!-- Home: header -->
+    <string name="home_search_cd">Search</string>
+    <string name="home_notifications_cd">Notifications</string>
+    <string name="home_logo_cd">Sun* Annual Awards 2025</string>
+
+    <!-- Home: hero -->
+    <string name="home_coming_soon">Coming soon</string>
+    <string name="home_days">DAYS</string>
+    <string name="home_hours">HOURS</string>
+    <string name="home_minutes">MINUTES</string>
+    <string name="home_event_ended">Event ended</string>
+    <string name="home_event_time_label">Date:</string>
+    <string name="home_event_venue_label">Venue:</string>
+    <string name="home_event_date">26/06/2026</string>
+    <string name="home_event_venue">Au Co Art Center</string>
+    <string name="home_livestream_note">Live broadcast on the Sun* Family Facebook Group</string>
+    <string name="home_about_award">ABOUT AWARD</string>
+    <string name="home_about_kudos">ABOUT KUDOS</string>
+
+    <!-- Home: theme description -->
+    <string name="home_theme_description">More than a name, "Root Further" is the spirit every Sun* aspires to: always looking deeper in every context and never ceasing to create, expanding oneself to overcome self-imposed limits. Borrowing the metaphor of color theory, from just three primaries — red, yellow, and blue — each individual\'s creativity can produce nearly limitless new shades, every hue representing breakthrough and boundless creation.</string>
+
+    <!-- Home: awards section -->
+    <string name="home_awards_event_label">Sun* Annual Awards 2025</string>
+    <string name="home_awards_section_title">Award System</string>
+    <string name="home_award_details">Details</string>
+    <string name="home_awards_empty">No awards available yet</string>
+    <string name="home_awards_error">Couldn\'t load awards</string>
+    <string name="home_awards_retry">Retry</string>
+
+    <!-- Home: kudos section -->
+    <string name="home_kudos_eyebrow">Recognition Movement</string>
+    <string name="home_kudos_title">Sun* Kudos</string>
+    <string name="home_kudos_new_badge">NEW FOR SAA 2025</string>
+    <string name="home_kudos_description">Recognizing and thanking colleagues — running for the first time, open to every Sunner. The program launches in November 2025, encouraging Sun* people to share recognition and thanks on the platform the organizing committee will announce. The Heads Council will use this material when selecting award recipients.</string>
+    <string name="home_kudos_details">Details</string>
+    <string name="home_kudos_logo_text" translatable="false">KUDOS</string>
+
+    <!-- Home: bottom navigation -->
+    <string name="home_nav_saa">SAA 2025</string>
+    <string name="home_nav_awards">Awards</string>
+    <string name="home_nav_kudos">Kudos</string>
+    <string name="home_nav_profile">Profile</string>
+
+    <!-- Home: FAB -->
+    <string name="home_fab_pen_cd">Write Kudos</string>
+    <string name="home_fab_kudos_cd">Kudos feed</string>
+
     <string name="home_welcome">Welcome, %1$s</string>
     <string name="home_logout">Log out</string>
 </resources>

@@ -4,54 +4,42 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.systemBarsPadding
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Text
+import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.learning.agentic_coding.R
-import com.learning.agentic_coding.domain.AuthUser
+import com.learning.agentic_coding.data.awards.AwardsResult
+import com.learning.agentic_coding.domain.Award
 import com.learning.agentic_coding.domain.Language
-import com.learning.agentic_coding.ui.components.LanguageDropdown
+import com.learning.agentic_coding.ui.screens.home.components.AwardsSection
+import com.learning.agentic_coding.ui.screens.home.components.HomeBottomNav
+import com.learning.agentic_coding.ui.screens.home.components.HomeFab
+import com.learning.agentic_coding.ui.screens.home.components.HomeHeader
+import com.learning.agentic_coding.ui.screens.home.components.HomeHeroSection
+import com.learning.agentic_coding.ui.screens.home.components.HomeTab
+import com.learning.agentic_coding.ui.screens.home.components.HomeThemeDescription
+import com.learning.agentic_coding.ui.screens.home.components.KudosSection
 
 /**
- * Placeholder Home / dashboard. Created per clarifications so navigation tests
- * (TC_LOGIN_FUN_007 / _009 / _012) have a real destination — full dashboard out of scope.
+ * Full Home screen — spec frame `OuH1BUTYT0` ([iOS] Home). Sections are stacked
+ * vertically in a single LazyColumn so the entire surface scrolls; the FAB and
+ * bottom nav float above. All click handlers are no-op by design (clarifications.md):
+ * destination screens are not built yet.
  */
 @Composable
-fun HomeRoute(viewModel: HomeViewModel) {
-    val state by viewModel.uiState.collectAsStateWithLifecycle()
-    HomeScreen(
-        user = state.user,
-        language = state.language,
-        onLanguageSelect = viewModel::onLanguageSelect,
-        onLogout = viewModel::onLogout,
-    )
-}
-
-@Composable
 fun HomeScreen(
-    user: AuthUser?,
-    language: Language,
+    state: HomeUiState,
     onLanguageSelect: (Language) -> Unit,
-    onLogout: () -> Unit,
+    onRetryAwards: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Box(
@@ -59,51 +47,109 @@ fun HomeScreen(
             .fillMaxSize()
             .background(colorResource(R.color.saa_bg_dark)),
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .systemBarsPadding()
-                .padding(24.dp),
-            verticalArrangement = Arrangement.spacedBy(24.dp),
-        ) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.End,
-            ) {
-                LanguageDropdown(selected = language, onSelect = onLanguageSelect)
-            }
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            Text(
-                text = stringResource(
-                    R.string.home_welcome,
-                    user?.displayName ?: user?.email.orEmpty(),
-                ),
-                color = Color.White,
-                fontSize = 28.sp,
-                fontWeight = FontWeight.SemiBold,
-            )
-
-            Spacer(modifier = Modifier.weight(1f))
-
-            Button(
-                onClick = onLogout,
+        Column(modifier = Modifier.fillMaxSize()) {
+            LazyColumn(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .height(52.dp)
-                    .align(Alignment.CenterHorizontally),
-                shape = RoundedCornerShape(26.dp),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = colorResource(R.color.saa_button_yellow),
-                    contentColor = colorResource(R.color.saa_text_on_button),
-                ),
+                    .weight(1f)
+                    .statusBarsPadding(),
+                contentPadding = PaddingValues(bottom = 96.dp),
+                verticalArrangement = Arrangement.spacedBy(20.dp),
             ) {
-                Text(
-                    text = stringResource(R.string.home_logout),
-                    fontWeight = FontWeight.SemiBold,
-                )
+                item {
+                    HomeHeader(
+                        language = state.language,
+                        notificationUnread = state.notificationUnread,
+                        onLanguageSelect = onLanguageSelect,
+                        onSearchClick = {},
+                        onNotificationsClick = {},
+                    )
+                }
+                item {
+                    HomeHeroSection(
+                        countdown = state.countdown,
+                        onAboutAwardClick = {},
+                        onAboutKudosClick = {},
+                    )
+                }
+                item { HomeThemeDescription() }
+                item {
+                    AwardsSection(
+                        state = state.awards,
+                        onAwardClick = {},
+                        onRetry = onRetryAwards,
+                    )
+                }
+                item {
+                    KudosSection(
+                        visible = state.isKudosAvailable,
+                        onDetailsClick = {},
+                    )
+                }
             }
+            HomeBottomNav(activeTab = HomeTab.SAA, onTabClick = {})
         }
+
+        HomeFab(
+            onPenClick = {},
+            onKudosClick = {},
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .padding(end = 16.dp, bottom = 128.dp),
+        )
     }
+}
+
+@Preview(showBackground = true, widthDp = 375, heightDp = 1500)
+@Composable
+private fun HomeScreenPreviewSuccess() {
+    HomeScreen(
+        state = HomeUiState(
+            language = Language.VN,
+            awards = AwardsResult.Success(
+                listOf(
+                    Award("1", "top-talent", "Top Talent",
+                        "Giải thưởng Top Talent vinh danh những cá nhân xuất sắc trên mọi phương diện",
+                        "award_top_talent", 1),
+                    Award("2", "top-project", "Top Project",
+                        "Giải thưởng Top Project vinh danh các tập thể dự án xuất sắc",
+                        "award_top_project", 2),
+                ),
+            ),
+            countdown = CountdownState(days = 35, hours = 12, minutes = 47, isEnded = false),
+            isKudosAvailable = true,
+            notificationUnread = 1,
+        ),
+        onLanguageSelect = {},
+        onRetryAwards = {},
+    )
+}
+
+@Preview(showBackground = true, widthDp = 375, heightDp = 1500)
+@Composable
+private fun HomeScreenPreviewError() {
+    HomeScreen(
+        state = HomeUiState(
+            language = Language.VN,
+            awards = AwardsResult.Error("Network unreachable"),
+            countdown = CountdownState(days = 35, hours = 12, minutes = 47, isEnded = false),
+        ),
+        onLanguageSelect = {},
+        onRetryAwards = {},
+    )
+}
+
+@Preview(showBackground = true, widthDp = 375, heightDp = 1500)
+@Composable
+private fun HomeScreenPreviewEndedNoKudos() {
+    HomeScreen(
+        state = HomeUiState(
+            language = Language.VN,
+            awards = AwardsResult.Empty,
+            countdown = CountdownState(days = 0, hours = 0, minutes = 0, isEnded = true),
+            isKudosAvailable = false,
+            notificationUnread = 0,
+        ),
+        onLanguageSelect = {},
+        onRetryAwards = {},
+    )
 }

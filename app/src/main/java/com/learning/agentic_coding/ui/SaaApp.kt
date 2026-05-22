@@ -24,7 +24,14 @@ import com.learning.agentic_coding.ui.theme.MyApplicationTheme
 fun SaaApp(services: ServiceLocator) {
     val factory = viewModelFactory {
         initializer { LoginViewModel(services.authRepository, services.localeRepository) }
-        initializer { HomeViewModel(services.authRepository, services.localeRepository) }
+        initializer {
+            HomeViewModel(
+                authRepository = services.authRepository,
+                localeRepository = services.localeRepository,
+                awardsRepository = services.awardsRepository,
+                kudosRepository = services.kudosRepository,
+            )
+        }
     }
     val loginViewModel: LoginViewModel = viewModel(factory = factory)
     val homeViewModel: HomeViewModel = viewModel(factory = factory)
