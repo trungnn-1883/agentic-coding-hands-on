@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">SAA 2025</string>
+
+    <string name="login_root_further">ROOT FURTHER</string>
+    <string name="login_description">SAA 2025 と一緒に旅を始めよう。ログインして探索しよう！</string>
+    <string name="login_button_google">LOGIN With Google</string>
+    <string name="login_copyright">Copyright Sun* © 2025</string>
+
+    <string name="language_dropdown_content_description">言語を選択</string>
+
+    <string name="error_auth_generic">サインインに失敗しました。もう一度お試しください。</string>
+    <string name="error_auth_cancelled">サインインがキャンセルされました。</string>
+    <string name="error_auth_no_google_account">このデバイスに Google アカウントがありません。設定で追加してから、もう一度お試しください。</string>
+    <string name="error_auth_network">ネットワークエラーです。接続を確認してもう一度お試しください。</string>
+    <string name="error_invalid_language">無効な言語の選択です。</string>
+
+    <string name="home_welcome">こんにちは、%1$s さん</string>
+    <string name="home_logout">ログアウト</string>
+</resources>

@@ -1,6 +1,6 @@
 {
-  "version": "2.1.0",
-  "generatedAt": "2026-05-13T09:33:35.213Z",
+  "version": "2.2.0",
+  "generatedAt": "2026-05-20T06:04:04.139Z",
   "files": [
     {
       "path": "agents/brainstormer.md",
@@ -922,9 +922,9 @@
     },
     {
       "path": "metadata.json",
-      "checksum": "8518c60f36d292a524523448ff46b5aaf16c398c58e953d5518619e7c3d1e985",
+      "checksum": "4eb79bd8d65d0214e36a1a6a115a57be8ca071e638afda921c44a68478482279",
       "size": 4312,
-      "lastModified": "2026-05-13T09:33:21Z"
+      "lastModified": "2026-05-20T06:03:53Z"
     },
     {
       "path": "output-styles/coding-level-0-eli5.md",
@@ -3904,27 +3904,33 @@
     },
     {
       "path": "skills/generate-ui-specs/SKILL.md",
-      "checksum": "8196ed1344c6a53b1c49feb6bbf18f0ad841e100540719a6873d42b497ffb0a2",
-      "size": 4309,
-      "lastModified": "2026-05-13T09:44:56+07:00"
+      "checksum": "9892c2150bba2cbb7f0bb8401b3ae8b012a624b17e9ee25cb99870d7441a32fc",
+      "size": 5789,
+      "lastModified": "2026-05-20T02:33:47Z"
     },
     {
       "path": "skills/generate-ui-specs/references/common-rules.md",
-      "checksum": "d094e835d529ccac2b5f4071f7702288524b12c41243ce4c7cf16ae54594b99b",
-      "size": 4428,
-      "lastModified": "2026-05-13T09:44:56+07:00"
+      "checksum": "13878c3eb068df8212d8ee1a0c4735bc537f65b108e24cc5b15164302c9062cf",
+      "size": 5632,
+      "lastModified": "2026-05-20T02:33:47Z"
     },
     {
       "path": "skills/generate-ui-specs/references/create-mode.md",
-      "checksum": "0120189e30b56a0f3183bdbc29d22abd2c1f612e12d94eadac87c81ef957cd70",
-      "size": 8617,
-      "lastModified": "2026-05-13T09:44:56+07:00"
+      "checksum": "ebbcd59f026929a48d90ef384652422aa81a410121f96455e1c0450b7b2c74e8",
+      "size": 10285,
+      "lastModified": "2026-05-20T02:33:47Z"
     },
     {
       "path": "skills/generate-ui-specs/references/output-contract.md",
-      "checksum": "3f52c9109623c21a00e75631b5e6f09316ea909345edaf37ffc4f7a63ce554a2",
-      "size": 1894,
-      "lastModified": "2026-05-13T09:44:56+07:00"
+      "checksum": "e5cf06ea0c00a66f8976100296ee4f5a0cadca56042e93d57a9bdafa8fb6cfb1",
+      "size": 2942,
+      "lastModified": "2026-05-20T02:33:47Z"
+    },
+    {
+      "path": "skills/generate-ui-specs/scripts/annotate-image-bboxes.py",
+      "checksum": "f95b8f4923223dd0c73a592dadbea2ffddbf253d665cc59ebacc8f17c73d569e",
+      "size": 6959,
+      "lastModified": "2026-05-20T02:33:47Z"
     },
     {
       "path": "skills/git/SKILL.md",
