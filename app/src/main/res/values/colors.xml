@@ -30,4 +30,8 @@
     <color name="saa_nav_inactive">#80FFFFFF</color>
     <color name="saa_divider">#33FFFFFF</color>
     <color name="saa_kudos_new_badge_text">#FFD4A946</color>
+
+    <!-- Award detail screen -->
+    <color name="saa_award_divider">#FF2E3940</color>
+    <color name="saa_award_label_gold">#FFFFEA9E</color>
 </resources>

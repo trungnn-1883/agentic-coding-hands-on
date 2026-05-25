@@ -62,6 +62,12 @@
     <string name="home_fab_pen_cd">Write Kudos</string>
     <string name="home_fab_kudos_cd">Kudos feed</string>
 
+    <!-- Award detail screen -->
+    <string name="award_detail_kv_subtitle">A system to recognize and thank</string>
+    <string name="award_detail_system_title">SAA 2025 Award System</string>
+    <string name="award_detail_quantity_label">Number of awards</string>
+    <string name="award_detail_value_label">Award value</string>
+
     <string name="home_welcome">Welcome, %1$s</string>
     <string name="home_logout">Log out</string>
 </resources>

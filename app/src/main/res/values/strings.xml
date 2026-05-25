@@ -68,6 +68,12 @@
     <string name="home_fab_pen_cd">Viết Kudos</string>
     <string name="home_fab_kudos_cd">Bảng tin Kudos</string>
 
+    <!-- Award detail screen -->
+    <string name="award_detail_kv_subtitle">Hệ thống ghi nhận và cảm ơn</string>
+    <string name="award_detail_system_title">Hệ thống giải thưởng SAA 2025</string>
+    <string name="award_detail_quantity_label">Số lượng giải thưởng</string>
+    <string name="award_detail_value_label">Giá trị giải thưởng</string>
+
     <!-- Legacy placeholder home strings — retained for future Profile/menu wiring -->
     <string name="home_welcome">Xin chào, %1$s</string>
     <string name="home_logout">Đăng xuất</string>

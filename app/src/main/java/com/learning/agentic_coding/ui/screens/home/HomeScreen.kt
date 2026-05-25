@@ -40,6 +40,8 @@ fun HomeScreen(
     state: HomeUiState,
     onLanguageSelect: (Language) -> Unit,
     onRetryAwards: () -> Unit,
+    onAwardClick: (Award) -> Unit = {},
+    onTabClick: (HomeTab) -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     Box(
@@ -48,22 +50,25 @@ fun HomeScreen(
             .background(colorResource(R.color.saa_bg_dark)),
     ) {
         Column(modifier = Modifier.fillMaxSize()) {
-            LazyColumn(
+            // Sticky header: stays pinned while content below scrolls.
+            Box(
                 modifier = Modifier
-                    .weight(1f)
+                    .background(colorResource(R.color.saa_bg_dark))
                     .statusBarsPadding(),
+            ) {
+                HomeHeader(
+                    language = state.language,
+                    notificationUnread = state.notificationUnread,
+                    onLanguageSelect = onLanguageSelect,
+                    onSearchClick = {},
+                    onNotificationsClick = {},
+                )
+            }
+            LazyColumn(
+                modifier = Modifier.weight(1f),
                 contentPadding = PaddingValues(bottom = 96.dp),
                 verticalArrangement = Arrangement.spacedBy(20.dp),
             ) {
-                item {
-                    HomeHeader(
-                        language = state.language,
-                        notificationUnread = state.notificationUnread,
-                        onLanguageSelect = onLanguageSelect,
-                        onSearchClick = {},
-                        onNotificationsClick = {},
-                    )
-                }
                 item {
                     HomeHeroSection(
                         countdown = state.countdown,
@@ -75,7 +80,7 @@ fun HomeScreen(
                 item {
                     AwardsSection(
                         state = state.awards,
-                        onAwardClick = {},
+                        onAwardClick = onAwardClick,
                         onRetry = onRetryAwards,
                     )
                 }
@@ -86,7 +91,7 @@ fun HomeScreen(
                     )
                 }
             }
-            HomeBottomNav(activeTab = HomeTab.SAA, onTabClick = {})
+            HomeBottomNav(activeTab = HomeTab.SAA, onTabClick = onTabClick)
         }
 
         HomeFab(
