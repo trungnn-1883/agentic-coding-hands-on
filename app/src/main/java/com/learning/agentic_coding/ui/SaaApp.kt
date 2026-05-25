@@ -17,6 +17,10 @@ import com.learning.agentic_coding.ui.screens.award.AwardDetailViewModel
 import com.learning.agentic_coding.ui.screens.home.HomeRoute
 import com.learning.agentic_coding.ui.screens.home.HomeViewModel
 import com.learning.agentic_coding.ui.screens.home.components.HomeTab
+import com.learning.agentic_coding.ui.screens.kudos.all.AllKudosRoute
+import com.learning.agentic_coding.ui.screens.kudos.all.AllKudosViewModel
+import com.learning.agentic_coding.ui.screens.kudos.main.KudosHomeRoute
+import com.learning.agentic_coding.ui.screens.kudos.main.KudosHomeViewModel
 import com.learning.agentic_coding.ui.screens.login.LoginRoute
 import com.learning.agentic_coding.ui.screens.login.LoginViewModel
 import com.learning.agentic_coding.ui.theme.MyApplicationTheme
@@ -41,9 +45,23 @@ fun SaaApp(services: ServiceLocator) {
                 kudosRepository = services.kudosRepository,
             )
         }
+        initializer {
+            KudosHomeViewModel(
+                kudosRepository = services.kudosRepository,
+                localeRepository = services.localeRepository,
+            )
+        }
+        initializer {
+            AllKudosViewModel(
+                kudosRepository = services.kudosRepository,
+                localeRepository = services.localeRepository,
+            )
+        }
     }
     val loginViewModel: LoginViewModel = viewModel(factory = baseFactory)
     val homeViewModel: HomeViewModel = viewModel(factory = baseFactory)
+    val kudosHomeViewModel: KudosHomeViewModel = viewModel(factory = baseFactory)
+    val allKudosViewModel: AllKudosViewModel = viewModel(factory = baseFactory)
 
     val user by services.authRepository.currentUser.collectAsStateWithLifecycle(initialValue = null)
     val language by services.localeRepository.languageFlow
@@ -57,17 +75,21 @@ fun SaaApp(services: ServiceLocator) {
                 LoginRoute(viewModel = loginViewModel)
                 return@LocalizedContent
             }
+            val tabRouter: (HomeTab) -> Unit = { tab ->
+                destination = when (tab) {
+                    HomeTab.SAA -> AppDestination.Home
+                    HomeTab.AWARDS -> AppDestination.AwardDetail(DEFAULT_AWARD_SLUG)
+                    HomeTab.KUDOS -> AppDestination.KudosHome
+                    HomeTab.PROFILE -> destination
+                }
+            }
             when (val dest = destination) {
                 is AppDestination.Home -> HomeRoute(
                     viewModel = homeViewModel,
                     onAwardClick = { award ->
                         destination = AppDestination.AwardDetail(award.slug)
                     },
-                    onTabClick = { tab ->
-                        if (tab == HomeTab.AWARDS) {
-                            destination = AppDestination.AwardDetail(DEFAULT_AWARD_SLUG)
-                        }
-                    },
+                    onTabClick = tabRouter,
                 )
                 is AppDestination.AwardDetail -> {
                     val detailFactory = viewModelFactory {
@@ -85,15 +107,20 @@ fun SaaApp(services: ServiceLocator) {
                     )
                     AwardDetailRoute(
                         viewModel = detailViewModel,
-                        onTabClick = { tab ->
-                            destination = when (tab) {
-                                HomeTab.SAA -> AppDestination.Home
-                                HomeTab.AWARDS -> AppDestination.AwardDetail(dest.slug)
-                                else -> AppDestination.Home
-                            }
-                        },
+                        onTabClick = tabRouter,
                     )
                 }
+                is AppDestination.KudosHome -> KudosHomeRoute(
+                    viewModel = kudosHomeViewModel,
+                    onLanguageSelect = homeViewModel::onLanguageSelect,
+                    onViewAllKudos = { destination = AppDestination.AllKudos },
+                    onTabClick = tabRouter,
+                )
+                is AppDestination.AllKudos -> AllKudosRoute(
+                    viewModel = allKudosViewModel,
+                    onBack = { destination = AppDestination.KudosHome },
+                    onTabClick = tabRouter,
+                )
             }
         }
     }
@@ -105,4 +132,6 @@ private const val DEFAULT_AWARD_SLUG = "top-talent"
 sealed interface AppDestination {
     data object Home : AppDestination
     data class AwardDetail(val slug: String) : AppDestination
+    data object KudosHome : AppDestination
+    data object AllKudos : AppDestination
 }

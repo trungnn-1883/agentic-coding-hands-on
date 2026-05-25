@@ -68,6 +68,33 @@
     <string name="award_detail_quantity_label">Number of awards</string>
     <string name="award_detail_value_label">Award value</string>
 
+    <!-- Kudos home screen -->
+    <string name="kudos_home_eyebrow">Recognition and thanks system</string>
+    <string name="kudos_compose_prompt">Who do you want to send kudos to today?</string>
+    <string name="kudos_event_label">Sun* Annual Awards 2025</string>
+    <string name="kudos_highlight_title">HIGHLIGHT KUDOS</string>
+    <string name="kudos_dropdown_hashtag">Hashtag</string>
+    <string name="kudos_dropdown_department">Department</string>
+    <string name="kudos_pager_indicator">%1$d/%2$d</string>
+    <string name="kudos_spotlight_title">SPOTLIGHT BOARD</string>
+    <string name="kudos_spotlight_count">388 KUDOS</string>
+    <string name="kudos_all_title">ALL KUDOS</string>
+    <string name="kudos_stats_received">Kudos received:</string>
+    <string name="kudos_stats_sent">Kudos sent:</string>
+    <string name="kudos_stats_hearts">Hearts received:</string>
+    <string name="kudos_stats_secret_opened">Secret Boxes opened:</string>
+    <string name="kudos_stats_secret_unopened">Secret Boxes unopened:</string>
+    <string name="kudos_stats_multiplier">x%1$d</string>
+    <string name="kudos_open_secret_box">Open Secret Box</string>
+    <string name="kudos_gift_panel_title">10 LATEST GIFT RECIPIENTS</string>
+    <string name="kudos_view_all">View all Kudos</string>
+    <string name="kudos_card_copy_link">Copy Link</string>
+    <string name="kudos_card_details">View details</string>
+    <string name="kudos_badge_rising_hero">Rising Hero</string>
+    <string name="kudos_badge_legend_hero">Legend Hero</string>
+    <string name="kudos_all_back_cd">Back</string>
+    <string name="kudos_all_screen_title">All Kudos</string>
+
     <string name="home_welcome">Welcome, %1$s</string>
     <string name="home_logout">Log out</string>
 </resources>

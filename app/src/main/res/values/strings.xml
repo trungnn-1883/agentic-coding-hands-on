@@ -74,6 +74,34 @@
     <string name="award_detail_quantity_label">Số lượng giải thưởng</string>
     <string name="award_detail_value_label">Giá trị giải thưởng</string>
 
+    <!-- Kudos home screen -->
+    <string name="kudos_home_eyebrow">Hệ thống ghi nhận và cảm ơn</string>
+    <string name="kudos_logo_text" translatable="false">KUDOS</string>
+    <string name="kudos_compose_prompt">Hôm nay, bạn muốn gửi kudos đến ai?</string>
+    <string name="kudos_event_label">Sun* Annual Awards 2025</string>
+    <string name="kudos_highlight_title">HIGHLIGHT KUDOS</string>
+    <string name="kudos_dropdown_hashtag">Hashtag</string>
+    <string name="kudos_dropdown_department">Phòng ban</string>
+    <string name="kudos_pager_indicator">%1$d/%2$d</string>
+    <string name="kudos_spotlight_title">SPOTLIGHT BOARD</string>
+    <string name="kudos_spotlight_count">388 KUDOS</string>
+    <string name="kudos_all_title">ALL KUDOS</string>
+    <string name="kudos_stats_received">Số Kudos bạn nhận được:</string>
+    <string name="kudos_stats_sent">Số Kudos bạn đã gửi:</string>
+    <string name="kudos_stats_hearts">Số tim bạn nhận được:</string>
+    <string name="kudos_stats_secret_opened">Số Secret Box bạn đã mở:</string>
+    <string name="kudos_stats_secret_unopened">Số Secret Box chưa mở:</string>
+    <string name="kudos_stats_multiplier">x%1$d</string>
+    <string name="kudos_open_secret_box">Mở Secret Box</string>
+    <string name="kudos_gift_panel_title">10 SUNNER NHẬN QUÀ MỚI NHẤT</string>
+    <string name="kudos_view_all">View all Kudos</string>
+    <string name="kudos_card_copy_link">Copy Link</string>
+    <string name="kudos_card_details">Xem chi tiết</string>
+    <string name="kudos_badge_rising_hero">Rising Hero</string>
+    <string name="kudos_badge_legend_hero">Legend Hero</string>
+    <string name="kudos_all_back_cd">Quay lại</string>
+    <string name="kudos_all_screen_title">All Kudos</string>
+
     <!-- Legacy placeholder home strings — retained for future Profile/menu wiring -->
     <string name="home_welcome">Xin chào, %1$s</string>
     <string name="home_logout">Đăng xuất</string>

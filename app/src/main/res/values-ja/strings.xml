@@ -68,6 +68,33 @@
     <string name="award_detail_quantity_label">アワード数</string>
     <string name="award_detail_value_label">アワード価値</string>
 
+    <!-- Kudos home screen -->
+    <string name="kudos_home_eyebrow">表彰と感謝のシステム</string>
+    <string name="kudos_compose_prompt">今日は誰に kudos を送りますか？</string>
+    <string name="kudos_event_label">Sun* Annual Awards 2025</string>
+    <string name="kudos_highlight_title">HIGHLIGHT KUDOS</string>
+    <string name="kudos_dropdown_hashtag">ハッシュタグ</string>
+    <string name="kudos_dropdown_department">部署</string>
+    <string name="kudos_pager_indicator">%1$d/%2$d</string>
+    <string name="kudos_spotlight_title">SPOTLIGHT BOARD</string>
+    <string name="kudos_spotlight_count">388 KUDOS</string>
+    <string name="kudos_all_title">ALL KUDOS</string>
+    <string name="kudos_stats_received">受け取った Kudos:</string>
+    <string name="kudos_stats_sent">送った Kudos:</string>
+    <string name="kudos_stats_hearts">受け取ったハート:</string>
+    <string name="kudos_stats_secret_opened">開封済み Secret Box:</string>
+    <string name="kudos_stats_secret_unopened">未開封 Secret Box:</string>
+    <string name="kudos_stats_multiplier">x%1$d</string>
+    <string name="kudos_open_secret_box">Secret Box を開く</string>
+    <string name="kudos_gift_panel_title">最新のギフト受領者 10 名</string>
+    <string name="kudos_view_all">すべての Kudos を見る</string>
+    <string name="kudos_card_copy_link">リンクをコピー</string>
+    <string name="kudos_card_details">詳細を見る</string>
+    <string name="kudos_badge_rising_hero">Rising Hero</string>
+    <string name="kudos_badge_legend_hero">Legend Hero</string>
+    <string name="kudos_all_back_cd">戻る</string>
+    <string name="kudos_all_screen_title">All Kudos</string>
+
     <string name="home_welcome">こんにちは、%1$s さん</string>
     <string name="home_logout">ログアウト</string>
 </resources>
