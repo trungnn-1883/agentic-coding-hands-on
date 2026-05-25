@@ -19,7 +19,7 @@ class ServiceLocator(applicationContext: Context) {
         googleSignInHelper = GoogleSignInHelper(),
     )
     val awardsRepository: AwardsRepository = AwardsRepository(SupabaseProvider.client)
-    val kudosRepository: KudosRepository = KudosRepository()
+    val kudosRepository: KudosRepository = KudosRepository(SupabaseProvider.client)
 }
 
 internal val Context.serviceLocator: ServiceLocator

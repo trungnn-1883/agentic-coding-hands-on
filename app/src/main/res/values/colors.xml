@@ -34,4 +34,27 @@
     <!-- Award detail screen -->
     <color name="saa_award_divider">#FF2E3940</color>
     <color name="saa_award_label_gold">#FFFFEA9E</color>
+
+    <!-- Kudos screens -->
+    <color name="saa_kudos_card_bg">#FFF7EFDD</color>
+    <color name="saa_kudos_card_inner_bg">#FFFFF7E2</color>
+    <color name="saa_kudos_card_text">#FF1A1A1A</color>
+    <color name="saa_kudos_card_subtext">#FF6B6B6B</color>
+    <color name="saa_kudos_card_divider">#33000000</color>
+    <color name="saa_kudos_hashtag_red">#FFD42727</color>
+    <color name="saa_kudos_logo">#FFDBD1C1</color>
+    <color name="saa_kudos_pill_dark">#FF1A2128</color>
+    <color name="saa_kudos_pill_gold">#FFFFD86B</color>
+    <color name="saa_kudos_dropdown_bg">#FF1A1F2E</color>
+    <color name="saa_kudos_dropdown_selected">#FFFFD86B</color>
+    <color name="saa_kudos_stats_border">#FFFFD86B</color>
+    <color name="saa_kudos_panel_bg">#1AFFFFFF</color>
+    <color name="saa_kudos_avatar_a">#FFB07A5C</color>
+    <color name="saa_kudos_avatar_b">#FFD9A28E</color>
+    <color name="saa_kudos_avatar_c">#FF8B6F4A</color>
+    <color name="saa_kudos_avatar_d">#FF6B8E7E</color>
+    <color name="saa_kudos_avatar_e">#FFA0586A</color>
+    <color name="saa_kudos_avatar_f">#FF5B7AA0</color>
+    <color name="saa_kudos_idol_title">#FF1A1A1A</color>
+    <color name="saa_kudos_white_dim">#B3FFFFFF</color>
 </resources>
