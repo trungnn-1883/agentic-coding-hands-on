@@ -62,6 +62,12 @@
     <string name="home_fab_pen_cd">Kudos を書く</string>
     <string name="home_fab_kudos_cd">Kudos フィード</string>
 
+    <!-- Award detail screen -->
+    <string name="award_detail_kv_subtitle">表彰と感謝を伝えるシステム</string>
+    <string name="award_detail_system_title">SAA 2025 アワードシステム</string>
+    <string name="award_detail_quantity_label">アワード数</string>
+    <string name="award_detail_value_label">アワード価値</string>
+
     <string name="home_welcome">こんにちは、%1$s さん</string>
     <string name="home_logout">ログアウト</string>
 </resources>
