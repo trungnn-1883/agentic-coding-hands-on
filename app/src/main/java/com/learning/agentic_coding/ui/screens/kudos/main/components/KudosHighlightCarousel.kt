@@ -50,6 +50,7 @@ fun KudosHighlightCarousel(
     hashtagOptions: List<String>,
     onDeptSelect: (String?) -> Unit,
     onHashtagSelect: (String?) -> Unit,
+    onDetailClick: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val filtered = posts.filter { post ->
@@ -77,7 +78,7 @@ fun KudosHighlightCarousel(
             )
         }
         if (filtered.isNotEmpty()) {
-            HighlightPager(posts = filtered)
+            HighlightPager(posts = filtered, onDetailClick = onDetailClick)
         } else {
             Text(
                 text = "—",
@@ -89,7 +90,7 @@ fun KudosHighlightCarousel(
 }
 
 @Composable
-private fun HighlightPager(posts: List<KudosPost>) {
+private fun HighlightPager(posts: List<KudosPost>, onDetailClick: (String) -> Unit) {
     val pagerState = rememberPagerState(pageCount = { posts.size })
     val scope = rememberCoroutineScope()
 
@@ -118,7 +119,7 @@ private fun HighlightPager(posts: List<KudosPost>) {
                 contentPadding = PaddingValues(horizontal = 4.dp),
                 pageSpacing = 12.dp,
             ) { page ->
-                KudosCard(post = posts[page])
+                KudosCard(post = posts[page], onDetailClick = onDetailClick)
             }
             ArrowButton(
                 rotate = 180f,

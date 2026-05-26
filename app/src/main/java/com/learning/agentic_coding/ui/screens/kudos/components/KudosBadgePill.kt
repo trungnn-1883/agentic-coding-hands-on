@@ -34,9 +34,10 @@ fun KudosBadgePill(badge: KudosBadge, modifier: Modifier = Modifier) {
         fontSize = 9.sp,
         fontWeight = FontWeight.SemiBold,
         modifier = modifier
-            .clip(RoundedCornerShape(3.dp))
+            // Figma badge corner radius is 22px on a 9px-tall pill -> fully rounded ends.
+            .clip(RoundedCornerShape(percent = 50))
             .background(colorResource(bgRes))
-            .padding(horizontal = 6.dp, vertical = 2.dp),
+            .padding(horizontal = 8.dp, vertical = 2.dp),
     )
 }
 

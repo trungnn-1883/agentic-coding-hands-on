@@ -95,6 +95,11 @@
     <string name="kudos_all_back_cd">戻る</string>
     <string name="kudos_all_screen_title">All Kudos</string>
 
+    <!-- Kudo detail screen -->
+    <string name="kudo_detail_title">Kudo</string>
+    <string name="kudo_detail_copy_link_toast">リンクをコピーしました</string>
+    <string name="kudo_detail_share_link_stub" translatable="false">saa://kudo/share</string>
+
     <string name="home_welcome">こんにちは、%1$s さん</string>
     <string name="home_logout">ログアウト</string>
 </resources>

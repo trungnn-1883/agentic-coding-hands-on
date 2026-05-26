@@ -16,6 +16,7 @@ data class KudosPost(
     val hearts: Int,
     val postedAt: OffsetDateTime,
     val isHighlight: Boolean,
+    val attachedImages: List<String> = emptyList(),
 )
 
 /** Sender or receiver side of a Kudos card (name + dept code + badge). */
@@ -23,6 +24,7 @@ data class KudosParty(
     val name: String,
     val dept: String,
     val badge: KudosBadge,
+    val avatarUrl: String? = null,
 )
 
 enum class KudosBadge(val wire: String) {

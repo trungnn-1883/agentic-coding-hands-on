@@ -19,6 +19,8 @@ import com.learning.agentic_coding.ui.screens.home.HomeViewModel
 import com.learning.agentic_coding.ui.screens.home.components.HomeTab
 import com.learning.agentic_coding.ui.screens.kudos.all.AllKudosRoute
 import com.learning.agentic_coding.ui.screens.kudos.all.AllKudosViewModel
+import com.learning.agentic_coding.ui.screens.kudos.detail.KudoDetailRoute
+import com.learning.agentic_coding.ui.screens.kudos.detail.KudoDetailViewModel
 import com.learning.agentic_coding.ui.screens.kudos.main.KudosHomeRoute
 import com.learning.agentic_coding.ui.screens.kudos.main.KudosHomeViewModel
 import com.learning.agentic_coding.ui.screens.login.LoginRoute
@@ -68,6 +70,9 @@ fun SaaApp(services: ServiceLocator) {
         .collectAsStateWithLifecycle(initialValue = Language.DEFAULT)
 
     var destination by remember { mutableStateOf<AppDestination>(AppDestination.Home) }
+    // Back target for KudoDetail — set when opening detail so we can return to the
+    // origin screen (KudosHome or AllKudos) instead of always defaulting to KudosHome.
+    var kudoDetailBack by remember { mutableStateOf<AppDestination>(AppDestination.KudosHome) }
 
     MyApplicationTheme {
         LocalizedContent(language = language) {
@@ -82,6 +87,10 @@ fun SaaApp(services: ServiceLocator) {
                     HomeTab.KUDOS -> AppDestination.KudosHome
                     HomeTab.PROFILE -> destination
                 }
+            }
+            val openKudoDetail: (String) -> Unit = { id ->
+                kudoDetailBack = destination
+                destination = AppDestination.KudoDetail(id)
             }
             when (val dest = destination) {
                 is AppDestination.Home -> HomeRoute(
@@ -114,13 +123,35 @@ fun SaaApp(services: ServiceLocator) {
                     viewModel = kudosHomeViewModel,
                     onLanguageSelect = homeViewModel::onLanguageSelect,
                     onViewAllKudos = { destination = AppDestination.AllKudos },
+                    onDetailClick = openKudoDetail,
                     onTabClick = tabRouter,
                 )
                 is AppDestination.AllKudos -> AllKudosRoute(
                     viewModel = allKudosViewModel,
                     onBack = { destination = AppDestination.KudosHome },
+                    onDetailClick = openKudoDetail,
                     onTabClick = tabRouter,
                 )
+                is AppDestination.KudoDetail -> {
+                    val detailFactory = viewModelFactory {
+                        initializer {
+                            KudoDetailViewModel(
+                                kudosRepository = services.kudosRepository,
+                                localeRepository = services.localeRepository,
+                                kudoId = dest.id,
+                            )
+                        }
+                    }
+                    val kudoDetailViewModel: KudoDetailViewModel = viewModel(
+                        key = "kudo-detail-${dest.id}",
+                        factory = detailFactory,
+                    )
+                    KudoDetailRoute(
+                        viewModel = kudoDetailViewModel,
+                        onBack = { destination = kudoDetailBack },
+                        onTabClick = tabRouter,
+                    )
+                }
             }
         }
     }
@@ -134,4 +165,5 @@ sealed interface AppDestination {
     data class AwardDetail(val slug: String) : AppDestination
     data object KudosHome : AppDestination
     data object AllKudos : AppDestination
+    data class KudoDetail(val id: String) : AppDestination
 }
