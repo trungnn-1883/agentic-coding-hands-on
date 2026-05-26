@@ -18,9 +18,11 @@ internal data class KudosPostRow(
     @SerialName("sender_name") val senderName: String,
     @SerialName("sender_dept") val senderDept: String,
     @SerialName("sender_badge") val senderBadge: String,
+    @SerialName("sender_avatar_url") val senderAvatarUrl: String? = null,
     @SerialName("receiver_name") val receiverName: String,
     @SerialName("receiver_dept") val receiverDept: String,
     @SerialName("receiver_badge") val receiverBadge: String,
+    @SerialName("receiver_avatar_url") val receiverAvatarUrl: String? = null,
     val title: String,
     val content: String,
     val hashtags: List<String> = emptyList(),
@@ -29,18 +31,26 @@ internal data class KudosPostRow(
     @SerialName("is_highlight") val isHighlight: Boolean = false,
     @SerialName("display_order") val displayOrder: Int = 0,
 ) {
-    fun toDomain(): KudosPost = KudosPost(
+    fun toDomain(attachedImages: List<String> = emptyList()): KudosPost = KudosPost(
         id = id,
-        sender = KudosParty(senderName, senderDept, KudosBadge.fromWire(senderBadge)),
-        receiver = KudosParty(receiverName, receiverDept, KudosBadge.fromWire(receiverBadge)),
+        sender = KudosParty(senderName, senderDept, KudosBadge.fromWire(senderBadge), senderAvatarUrl),
+        receiver = KudosParty(receiverName, receiverDept, KudosBadge.fromWire(receiverBadge), receiverAvatarUrl),
         title = title,
         content = content,
         hashtags = hashtags,
         hearts = hearts,
         postedAt = parsePostgrestTimestamp(postedAt),
         isHighlight = isHighlight,
+        attachedImages = attachedImages,
     )
 }
+
+@Serializable
+internal data class KudoImageRow(
+    @SerialName("kudo_id") val kudoId: String,
+    @SerialName("image_url") val imageUrl: String,
+    @SerialName("sort_order") val sortOrder: Int = 0,
+)
 
 @Serializable
 internal data class KudosUserStatsRow(

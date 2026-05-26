@@ -44,6 +44,7 @@ fun AllKudosScreen(
     onBack: () -> Unit,
     onRetry: () -> Unit,
     onTabClick: (HomeTab) -> Unit,
+    onDetailClick: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Box(
@@ -62,6 +63,7 @@ fun AllKudosScreen(
                     AllKudosBody(
                         state = state,
                         onRetry = onRetry,
+                        onDetailClick = onDetailClick,
                         modifier = Modifier.weight(1f),
                     )
                 }
@@ -111,6 +113,7 @@ private fun AllKudosTopBar(onBack: () -> Unit) {
 private fun AllKudosBody(
     state: AllKudosUiState,
     onRetry: () -> Unit,
+    onDetailClick: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     when (val data = state.data) {
@@ -131,13 +134,18 @@ private fun AllKudosBody(
                 modifier = Modifier.padding(top = 12.dp).clickable(onClick = onRetry),
             )
         }
-        is KudosResult.Success -> AllKudosList(posts = data.posts, modifier = modifier)
+        is KudosResult.Success -> AllKudosList(
+            posts = data.posts,
+            onDetailClick = onDetailClick,
+            modifier = modifier,
+        )
     }
 }
 
 @Composable
 private fun AllKudosList(
     posts: List<com.learning.agentic_coding.domain.KudosPost>,
+    onDetailClick: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(
@@ -156,7 +164,7 @@ private fun AllKudosList(
         }
         items(posts, key = { it.id }) { post ->
             Box(modifier = Modifier.padding(horizontal = 20.dp)) {
-                KudosCard(post = post)
+                KudosCard(post = post, onDetailClick = onDetailClick)
             }
         }
     }

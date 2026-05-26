@@ -102,6 +102,11 @@
     <string name="kudos_all_back_cd">Quay lại</string>
     <string name="kudos_all_screen_title">All Kudos</string>
 
+    <!-- Kudo detail screen -->
+    <string name="kudo_detail_title">Kudo</string>
+    <string name="kudo_detail_copy_link_toast">Đã sao chép liên kết</string>
+    <string name="kudo_detail_share_link_stub" translatable="false">saa://kudo/share</string>
+
     <!-- Legacy placeholder home strings — retained for future Profile/menu wiring -->
     <string name="home_welcome">Xin chào, %1$s</string>
     <string name="home_logout">Đăng xuất</string>

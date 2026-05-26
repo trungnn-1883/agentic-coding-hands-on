@@ -2,6 +2,7 @@ package com.learning.agentic_coding.ui.screens.kudos.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -18,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -38,7 +40,11 @@ import com.learning.agentic_coding.domain.KudosPost
  * Designed to be reused on KudosHome (highlight + recent) and AllKudos (full list).
  */
 @Composable
-fun KudosCard(post: KudosPost, modifier: Modifier = Modifier) {
+fun KudosCard(
+    post: KudosPost,
+    modifier: Modifier = Modifier,
+    onDetailClick: ((String) -> Unit)? = null,
+) {
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -69,7 +75,11 @@ fun KudosCard(post: KudosPost, modifier: Modifier = Modifier) {
         )
         KudosCardBody(content = post.content, hashtags = post.hashtags)
         ThinDivider()
-        KudosCardActions(hearts = post.hearts)
+        KudosCardActions(
+            hearts = post.hearts,
+            kudoId = post.id,
+            onDetailClick = onDetailClick?.let { { it(post.id) } },
+        )
     }
 }
 
@@ -102,7 +112,7 @@ private fun PartyBlock(party: KudosParty, modifier: Modifier = Modifier) {
         verticalArrangement = Arrangement.spacedBy(6.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        KudosAvatar(name = party.name, size = 32.dp)
+        KudosAvatar(name = party.name, size = 32.dp, url = party.avatarUrl)
         Text(
             text = party.name,
             color = colorResource(R.color.saa_kudos_card_text),
@@ -139,7 +149,7 @@ private fun KudosCardBody(content: String, hashtags: List<String>) {
         modifier = Modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(8.dp))
-            .background(colorResource(R.color.saa_kudos_card_inner_bg))
+            .background(colorResource(R.color.saa_kudos_card_bg))
             .padding(12.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
@@ -148,6 +158,7 @@ private fun KudosCardBody(content: String, hashtags: List<String>) {
             color = colorResource(R.color.saa_kudos_card_text),
             fontSize = 12.sp,
             lineHeight = 18.sp,
+            modifier = Modifier.background(colorResource(R.color.saa_kudos_content_bg_40))
         )
         if (hashtags.isNotEmpty()) {
             Text(
@@ -161,7 +172,8 @@ private fun KudosCardBody(content: String, hashtags: List<String>) {
 }
 
 @Composable
-private fun KudosCardActions(hearts: Int) {
+private fun KudosCardActions(hearts: Int, kudoId: String, onDetailClick: (() -> Unit)?) {
+    val context = LocalContext.current
     Row(
         modifier = Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
@@ -191,18 +203,25 @@ private fun KudosCardActions(hearts: Int) {
             ActionLink(
                 label = stringResource(R.string.kudos_card_copy_link),
                 iconRes = R.drawable.ic_copy_link,
+                onClick = { copyKudoLinkToClipboard(context, kudoId) },
             )
             ActionLink(
                 label = stringResource(R.string.kudos_card_details),
                 iconRes = R.drawable.ic_send_arrow,
+                onClick = onDetailClick,
             )
         }
     }
 }
 
 @Composable
-private fun ActionLink(label: String, iconRes: Int) {
-    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+private fun ActionLink(label: String, iconRes: Int, onClick: (() -> Unit)? = null) {
+    val clickModifier = if (onClick != null) Modifier.clickable(onClick = onClick) else Modifier
+    Row(
+        modifier = clickModifier,
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(4.dp),
+    ) {
         Text(
             text = label,
             color = colorResource(R.color.saa_kudos_card_text),
@@ -232,5 +251,7 @@ private fun formatHearts(value: Int): String {
     if (value < 1000) return value.toString()
     val thousands = value / 1000
     val remainder = value % 1000
-    return if (remainder == 0) "$thousands.000" else "$thousands.${remainder.toString().padStart(3, '0')}"
+    return if (remainder == 0) "$thousands.000" else "$thousands.${
+        remainder.toString().padStart(3, '0')
+    }"
 }

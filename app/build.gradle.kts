@@ -91,6 +91,7 @@ dependencies {
     implementation(libs.supabase.gotrue)
     implementation(libs.supabase.postgrest)
     implementation(libs.ktor.client.android)
+    implementation(libs.coil.compose)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

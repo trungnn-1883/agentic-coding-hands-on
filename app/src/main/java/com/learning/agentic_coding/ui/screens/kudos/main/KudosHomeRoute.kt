@@ -11,6 +11,7 @@ fun KudosHomeRoute(
     viewModel: KudosHomeViewModel,
     onLanguageSelect: (com.learning.agentic_coding.domain.Language) -> Unit,
     onViewAllKudos: () -> Unit,
+    onDetailClick: (String) -> Unit,
     onTabClick: (HomeTab) -> Unit,
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
@@ -22,5 +23,6 @@ fun KudosHomeRoute(
         onViewAllKudos = onViewAllKudos,
         onRetry = viewModel::retry,
         onTabClick = onTabClick,
+        onDetailClick = onDetailClick,
     )
 }

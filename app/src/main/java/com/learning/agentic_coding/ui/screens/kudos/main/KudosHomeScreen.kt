@@ -57,6 +57,7 @@ fun KudosHomeScreen(
     onViewAllKudos: () -> Unit,
     onRetry: () -> Unit,
     onTabClick: (HomeTab) -> Unit,
+    onDetailClick: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Box(
@@ -84,6 +85,7 @@ fun KudosHomeScreen(
                 onHashtagSelect = onHashtagSelect,
                 onViewAllKudos = onViewAllKudos,
                 onRetry = onRetry,
+                onDetailClick = onDetailClick,
                 modifier = Modifier.weight(1f),
             )
             HomeBottomNav(activeTab = HomeTab.KUDOS, onTabClick = onTabClick)
@@ -98,6 +100,7 @@ private fun KudosHomeBody(
     onHashtagSelect: (String?) -> Unit,
     onViewAllKudos: () -> Unit,
     onRetry: () -> Unit,
+    onDetailClick: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     when (val data = state.data) {
@@ -109,6 +112,7 @@ private fun KudosHomeBody(
             onDeptSelect = onDeptSelect,
             onHashtagSelect = onHashtagSelect,
             onViewAllKudos = onViewAllKudos,
+            onDetailClick = onDetailClick,
             modifier = modifier,
         )
     }
@@ -122,6 +126,7 @@ private fun KudosHomeContent(
     onDeptSelect: (String?) -> Unit,
     onHashtagSelect: (String?) -> Unit,
     onViewAllKudos: () -> Unit,
+    onDetailClick: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val highlightPosts = data.posts.filter { it.isHighlight }
@@ -149,6 +154,7 @@ private fun KudosHomeContent(
                         hashtagOptions = KudosCatalog.hashtags,
                         onDeptSelect = onDeptSelect,
                         onHashtagSelect = onHashtagSelect,
+                        onDetailClick = onDetailClick,
                     )
                 }
             }
@@ -161,7 +167,7 @@ private fun KudosHomeContent(
         item { KudosGiftPanel(recipients = data.giftRecipients) }
         items(recentPosts, key = { it.id }) { post ->
             Box(modifier = Modifier.padding(horizontal = 20.dp)) {
-                KudosCard(post = post)
+                KudosCard(post = post, onDetailClick = onDetailClick)
             }
         }
         item { ViewAllKudosLink(onClick = onViewAllKudos) }

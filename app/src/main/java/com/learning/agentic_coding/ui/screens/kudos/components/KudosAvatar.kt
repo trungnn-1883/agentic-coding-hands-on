@@ -10,19 +10,23 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.SubcomposeAsyncImage
+import coil.request.ImageRequest
 import com.learning.agentic_coding.R
 
 /**
- * Placeholder avatar — colored circle with the person's initial. No remote image loading
- * is wired in this project, so we render a deterministic accent per name.
+ * Circular avatar. When [url] is non-null, loads the remote image via Coil; otherwise (or
+ * while loading / on error) falls back to a deterministic initial-letter chip.
  */
 @Composable
-fun KudosAvatar(name: String, size: Dp = 32.dp) {
+fun KudosAvatar(name: String, size: Dp = 32.dp, url: String? = null) {
     val palette = listOf(
         R.color.saa_kudos_avatar_a,
         R.color.saa_kudos_avatar_b,
@@ -33,15 +37,35 @@ fun KudosAvatar(name: String, size: Dp = 32.dp) {
     )
     val bg = colorResource(palette[KudosFormatters.avatarColorIndex(name)])
     val initial = name.firstOrNull()?.uppercaseChar()?.toString().orEmpty()
+
     Box(
         modifier = Modifier.size(size).clip(CircleShape).background(bg),
         contentAlignment = Alignment.Center,
     ) {
-        Text(
-            text = initial,
-            color = Color.White,
-            fontWeight = FontWeight.SemiBold,
-            fontSize = (size.value * 0.42f).sp,
-        )
+        if (url.isNullOrBlank()) {
+            InitialChip(initial = initial, size = size)
+        } else {
+            SubcomposeAsyncImage(
+                model = ImageRequest.Builder(LocalContext.current)
+                    .data(url)
+                    .crossfade(true)
+                    .build(),
+                contentDescription = null,
+                modifier = Modifier.size(size).clip(CircleShape),
+                contentScale = ContentScale.Crop,
+                loading = { InitialChip(initial = initial, size = size) },
+                error = { InitialChip(initial = initial, size = size) },
+            )
+        }
     }
+}
+
+@Composable
+private fun InitialChip(initial: String, size: Dp) {
+    Text(
+        text = initial,
+        color = Color.White,
+        fontWeight = FontWeight.SemiBold,
+        fontSize = (size.value * 0.42f).sp,
+    )
 }

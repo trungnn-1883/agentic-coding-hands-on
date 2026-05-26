@@ -15,6 +15,13 @@ sealed interface KudosResult {
     data class Error(val message: String) : KudosResult
 }
 
+/** Single-kudo payload for the detail screen. */
+sealed interface KudoDetailResult {
+    data object Loading : KudoDetailResult
+    data class Success(val post: KudosPost) : KudoDetailResult
+    data class Error(val message: String) : KudoDetailResult
+}
+
 /** Static catalog values shown in the dropdown menus (see clarifications.md). */
 object KudosCatalog {
     val departments: List<String> = listOf("CECV1", "CECV2", "CECV3", "CECV4", "OPD", "Infra")

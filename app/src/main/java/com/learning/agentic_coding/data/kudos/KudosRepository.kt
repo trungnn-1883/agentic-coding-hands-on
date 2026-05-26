@@ -28,11 +28,16 @@ class KudosRepository(private val supabase: SupabaseClient? = null) {
         val result = runCatching {
             coroutineScope {
                 val postsDeferred = async {
-                    client.from("kudos_posts")
+                    val rows = client.from("kudos_posts")
                         .select()
                         .decodeList<KudosPostRow>()
                         .sortedBy { it.displayOrder }
-                        .map { it.toDomain() }
+                    val images = client.from("kudo_images")
+                        .select()
+                        .decodeList<KudoImageRow>()
+                        .sortedBy { it.sortOrder }
+                        .groupBy { it.kudoId }
+                    rows.map { row -> row.toDomain(images[row.id]?.map { it.imageUrl }.orEmpty()) }
                 }
                 val statsDeferred = async {
                     client.from("kudos_user_stats")
@@ -61,6 +66,42 @@ class KudosRepository(private val supabase: SupabaseClient? = null) {
                     }
                 },
                 onFailure = { KudosResult.Error(it.message ?: "Unknown error") },
+            ),
+        )
+    }
+
+    fun observeKudoDetail(id: String): Flow<KudoDetailResult> = flow {
+        emit(KudoDetailResult.Loading)
+        val client = supabase
+        if (client == null) {
+            emit(KudoDetailResult.Error("Supabase client not configured"))
+            return@flow
+        }
+        val result = runCatching {
+            coroutineScope {
+                val postDeferred = async {
+                    client.from("kudos_posts")
+                        .select { filter { eq("id", id) } }
+                        .decodeList<KudosPostRow>()
+                        .firstOrNull()
+                }
+                val imagesDeferred = async {
+                    client.from("kudo_images")
+                        .select { filter { eq("kudo_id", id) } }
+                        .decodeList<KudoImageRow>()
+                        .sortedBy { it.sortOrder }
+                        .map { it.imageUrl }
+                }
+                postDeferred.await() to imagesDeferred.await()
+            }
+        }
+        emit(
+            result.fold(
+                onSuccess = { (row, images) ->
+                    if (row == null) KudoDetailResult.Error("Kudo not found: $id")
+                    else KudoDetailResult.Success(row.toDomain(images))
+                },
+                onFailure = { KudoDetailResult.Error(it.message ?: "Unknown error") },
             ),
         )
     }
