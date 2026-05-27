@@ -106,6 +106,33 @@
     <string name="kudo_detail_title">Kudo</string>
     <string name="kudo_detail_copy_link_toast">Đã sao chép liên kết</string>
     <string name="kudo_detail_share_link_stub" translatable="false">saa://kudo/share</string>
+    <string name="kudo_detail_anonymous_label">Người gửi ẩn danh</string>
+
+    <!-- Send Kudo screen (MoMorph PV7jBVZU1N + variants) -->
+    <string name="kudo_compose_title">New Kudo</string>
+    <string name="kudo_compose_card_title">Gửi lời cám ơn và ghi nhận đến đồng đội</string>
+    <string name="kudo_compose_field_recipient">Người nhận</string>
+    <string name="kudo_compose_field_award_title">Danh hiệu</string>
+    <string name="kudo_compose_field_award_title_hint">Dành tặng một danh hiệu cho…</string>
+    <string name="kudo_compose_award_hint">Ví dụ: Người truyền động lực cho tôi.\nDanh hiệu sẽ hiển thị làm tiêu đề Kudos của bạn.</string>
+    <string name="kudo_compose_body_hint">Bạn có thể \"@ + tên\" để nhắc tới đồng nghiệp khác</string>
+    <string name="kudo_compose_field_hashtag">Hashtag</string>
+    <string name="kudo_compose_field_image">Image</string>
+    <string name="kudo_compose_anonymous">Gửi lời cám ơn và ghi nhận ẩn danh</string>
+    <string name="kudo_compose_field_nickname">Nickname ẩn danh</string>
+    <string name="kudo_compose_cancel">Huỷ</string>
+    <string name="kudo_compose_send">Gửi đi</string>
+    <string name="kudo_compose_error_required">Bạn cần điền đủ Người nhận, Danh hiệu, Lời nhắn gửi và Hashtag để gửi Kudos!</string>
+    <string name="kudo_compose_error_self">Bạn không thể gửi Kudo cho chính mình.</string>
+    <string name="kudo_compose_recipient_hint">Tìm kiếm</string>
+    <string name="kudo_compose_body_placeholder">Hãy gửi gắm lời cám ơn và ghi nhận đến đồng đội tại đây nhé!</string>
+
+    <!-- Sunner search screen (MoMorph 3jgwke3E8O / hldqjHoSRH) -->
+    <string name="sunner_search_hint">Search Sunner</string>
+    <string name="sunner_search_recent">Recent</string>
+    <string name="sunner_search_view_all">View all</string>
+    <string name="sunner_search_empty">Không tìm thấy kết quả nào phù hợp</string>
+    <string name="sunner_search_remove_cd">Xoá khỏi tìm kiếm gần đây</string>
 
     <!-- Legacy placeholder home strings — retained for future Profile/menu wiring -->
     <string name="home_welcome">Xin chào, %1$s</string>

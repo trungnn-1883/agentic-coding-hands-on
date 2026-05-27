@@ -1,6 +1,7 @@
 package com.learning.agentic_coding.ui.screens.kudos.main.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -35,7 +36,7 @@ import com.learning.agentic_coding.R
  * layer up, so this block can sit on top transparently.
  */
 @Composable
-fun KudosHero(modifier: Modifier = Modifier) {
+fun KudosHero(modifier: Modifier = Modifier, onComposeClick: () -> Unit = {}) {
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -49,7 +50,7 @@ fun KudosHero(modifier: Modifier = Modifier) {
             fontWeight = FontWeight.Medium,
         )
         KudosWordmark()
-        ComposePromptCard()
+        ComposePromptCard(onClick = onComposeClick)
     }
 }
 
@@ -75,12 +76,13 @@ private fun KudosWordmark() {
 }
 
 @Composable
-private fun ComposePromptCard() {
+private fun ComposePromptCard(onClick: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(8.dp))
             .background(colorResource(R.color.saa_kudos_dropdown_bg))
+            .clickable(onClick = onClick)
             .padding(horizontal = 14.dp, vertical = 12.dp)
             .height(40.dp),
         verticalAlignment = Alignment.CenterVertically,

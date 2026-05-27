@@ -1,16 +1,21 @@
 package com.learning.agentic_coding.data.kudos
 
+import com.learning.agentic_coding.domain.KudosHashtag
+import com.learning.agentic_coding.domain.KudosRecipient
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.postgrest.from
+import io.github.jan.supabase.postgrest.query.Columns
+import io.github.jan.supabase.storage.storage
+import java.util.UUID
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 /**
- * Reads the kudos_posts / kudos_user_stats / kudos_gift_recipients tables. Emits Loading
- * first, then exactly one terminal Success / Error state. Mirrors AwardsRepository shape so
- * UI layer can collect uniformly.
+ * Reads the kudos_posts / kudos_user_stats / kudos_gift_recipients tables and writes new
+ * kudos via [createKudo]. Lookup helpers feed the Send-Kudos dropdowns. Mirrors
+ * AwardsRepository shape so UI layer can collect uniformly.
  *
  * [isKudosAvailable] retained as a static gate consumed by HomeViewModel (spec FUN_009).
  */
@@ -104,5 +109,94 @@ class KudosRepository(private val supabase: SupabaseClient? = null) {
                 onFailure = { KudoDetailResult.Error(it.message ?: "Unknown error") },
             ),
         )
+    }
+
+    suspend fun listRecipients(): List<KudosRecipient> {
+        val client = supabase ?: return emptyList()
+        return runCatching {
+            client.from("kudos_recipients")
+                .select()
+                .decodeList<KudosRecipientRow>()
+                .sortedBy { it.displayOrder }
+                .map { it.toDomain() }
+        }.getOrDefault(emptyList())
+    }
+
+    suspend fun findRecipientByEmail(email: String): KudosRecipient? {
+        val client = supabase ?: return null
+        return runCatching {
+            client.from("kudos_recipients")
+                .select { filter { eq("email", email) } }
+                .decodeList<KudosRecipientRow>()
+                .firstOrNull()
+                ?.toDomain()
+        }.getOrNull()
+    }
+
+    /**
+     * Realtime Sunner search (MoMorph hldqjHoSRH). Case-insensitive match on name OR email
+     * against kudos_recipients, capped at [limit] rows. Blank query returns empty.
+     */
+    suspend fun searchRecipients(query: String, limit: Int = 10): List<KudosRecipient> {
+        val client = supabase ?: return emptyList()
+        val trimmed = query.trim()
+        if (trimmed.isBlank()) return emptyList()
+        // Escape ilike wildcards so a user typing % or _ doesn't broaden the match.
+        val escaped = trimmed.replace("\\", "\\\\").replace("%", "\\%").replace("_", "\\_")
+        return runCatching {
+            client.from("kudos_recipients")
+                .select {
+                    filter {
+                        or {
+                            ilike("name", "%$escaped%")
+                            ilike("email", "%$escaped%")
+                        }
+                    }
+                    limit(limit.toLong())
+                }
+                .decodeList<KudosRecipientRow>()
+                .map { it.toDomain() }
+        }.getOrDefault(emptyList())
+    }
+
+    suspend fun listHashtags(): List<KudosHashtag> {
+        val client = supabase ?: return emptyList()
+        return runCatching {
+            client.from("kudos_hashtags")
+                .select()
+                .decodeList<KudosHashtagRow>()
+                .sortedBy { it.displayOrder }
+                .map { it.toDomain() }
+        }.getOrDefault(emptyList())
+    }
+
+    /**
+     * Inserts a new kudo and any attached images. Returns the new kudo id on success.
+     * Image bytes are uploaded to the `kudo-images` storage bucket first; their public
+     * URLs are written to the `kudo_images` table.
+     */
+    suspend fun createKudo(
+        payload: KudosPostInsert,
+        imageBytes: List<ByteArray>,
+    ): Result<String> {
+        val client = supabase ?: return Result.failure(IllegalStateException("Supabase not configured"))
+        return runCatching {
+            val inserted = client.from("kudos_posts")
+                .insert(payload) { select(Columns.list("id")) }
+                .decodeSingle<KudosInsertedRow>()
+            val newId = inserted.id
+
+            if (imageBytes.isNotEmpty()) {
+                val bucket = client.storage.from("kudo-images")
+                val imageRows = imageBytes.mapIndexed { idx, bytes ->
+                    val path = "$newId/${UUID.randomUUID()}.jpg"
+                    bucket.upload(path, bytes) { upsert = false }
+                    val publicUrl = bucket.publicUrl(path)
+                    KudoImageInsert(kudoId = newId, imageUrl = publicUrl, sortOrder = idx)
+                }
+                client.from("kudo_images").insert(imageRows)
+            }
+            newId
+        }
     }
 }

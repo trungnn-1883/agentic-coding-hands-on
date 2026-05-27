@@ -19,10 +19,14 @@ import com.learning.agentic_coding.ui.screens.home.HomeViewModel
 import com.learning.agentic_coding.ui.screens.home.components.HomeTab
 import com.learning.agentic_coding.ui.screens.kudos.all.AllKudosRoute
 import com.learning.agentic_coding.ui.screens.kudos.all.AllKudosViewModel
+import com.learning.agentic_coding.ui.screens.kudos.compose.KudoComposeRoute
+import com.learning.agentic_coding.ui.screens.kudos.compose.KudoComposeViewModel
 import com.learning.agentic_coding.ui.screens.kudos.detail.KudoDetailRoute
 import com.learning.agentic_coding.ui.screens.kudos.detail.KudoDetailViewModel
 import com.learning.agentic_coding.ui.screens.kudos.main.KudosHomeRoute
 import com.learning.agentic_coding.ui.screens.kudos.main.KudosHomeViewModel
+import com.learning.agentic_coding.ui.screens.kudos.search.SunnerSearchRoute
+import com.learning.agentic_coding.ui.screens.kudos.search.SunnerSearchViewModel
 import com.learning.agentic_coding.ui.screens.login.LoginRoute
 import com.learning.agentic_coding.ui.screens.login.LoginViewModel
 import com.learning.agentic_coding.ui.theme.MyApplicationTheme
@@ -92,6 +96,8 @@ fun SaaApp(services: ServiceLocator) {
                 kudoDetailBack = destination
                 destination = AppDestination.KudoDetail(id)
             }
+            val openKudoCompose: () -> Unit = { destination = AppDestination.KudoCompose }
+            val openSunnerSearch: () -> Unit = { destination = AppDestination.SunnerSearch }
             when (val dest = destination) {
                 is AppDestination.Home -> HomeRoute(
                     viewModel = homeViewModel,
@@ -99,6 +105,7 @@ fun SaaApp(services: ServiceLocator) {
                         destination = AppDestination.AwardDetail(award.slug)
                     },
                     onTabClick = tabRouter,
+                    onComposeKudo = openKudoCompose,
                 )
                 is AppDestination.AwardDetail -> {
                     val detailFactory = viewModelFactory {
@@ -125,6 +132,8 @@ fun SaaApp(services: ServiceLocator) {
                     onViewAllKudos = { destination = AppDestination.AllKudos },
                     onDetailClick = openKudoDetail,
                     onTabClick = tabRouter,
+                    onComposeClick = openKudoCompose,
+                    onSearchClick = openSunnerSearch,
                 )
                 is AppDestination.AllKudos -> AllKudosRoute(
                     viewModel = allKudosViewModel,
@@ -132,6 +141,45 @@ fun SaaApp(services: ServiceLocator) {
                     onDetailClick = openKudoDetail,
                     onTabClick = tabRouter,
                 )
+                is AppDestination.KudoCompose -> {
+                    val composeFactory = viewModelFactory {
+                        initializer {
+                            KudoComposeViewModel(
+                                kudosRepository = services.kudosRepository,
+                                authRepository = services.authRepository,
+                            )
+                        }
+                    }
+                    val composeViewModel: KudoComposeViewModel = viewModel(
+                        key = "kudo-compose",
+                        factory = composeFactory,
+                    )
+                    KudoComposeRoute(
+                        viewModel = composeViewModel,
+                        onBack = { destination = AppDestination.KudosHome },
+                        onSent = { destination = AppDestination.KudosHome },
+                        onTabClick = tabRouter,
+                    )
+                }
+                is AppDestination.SunnerSearch -> {
+                    val searchFactory = viewModelFactory {
+                        initializer {
+                            SunnerSearchViewModel(
+                                kudosRepository = services.kudosRepository,
+                                recentSearchStore = services.recentSearchStore,
+                            )
+                        }
+                    }
+                    val searchViewModel: SunnerSearchViewModel = viewModel(
+                        key = "sunner-search",
+                        factory = searchFactory,
+                    )
+                    SunnerSearchRoute(
+                        viewModel = searchViewModel,
+                        onBack = { destination = AppDestination.KudosHome },
+                        onTabClick = tabRouter,
+                    )
+                }
                 is AppDestination.KudoDetail -> {
                     val detailFactory = viewModelFactory {
                         initializer {
@@ -166,4 +214,6 @@ sealed interface AppDestination {
     data object KudosHome : AppDestination
     data object AllKudos : AppDestination
     data class KudoDetail(val id: String) : AppDestination
+    data object KudoCompose : AppDestination
+    data object SunnerSearch : AppDestination
 }

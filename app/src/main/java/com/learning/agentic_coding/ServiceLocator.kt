@@ -6,6 +6,7 @@ import com.learning.agentic_coding.data.auth.GoogleSignInHelper
 import com.learning.agentic_coding.data.auth.SupabaseProvider
 import com.learning.agentic_coding.data.awards.AwardsRepository
 import com.learning.agentic_coding.data.kudos.KudosRepository
+import com.learning.agentic_coding.data.kudos.RecentSearchStore
 import com.learning.agentic_coding.data.locale.LocaleRepository
 
 /**
@@ -20,6 +21,7 @@ class ServiceLocator(applicationContext: Context) {
     )
     val awardsRepository: AwardsRepository = AwardsRepository(SupabaseProvider.client)
     val kudosRepository: KudosRepository = KudosRepository(SupabaseProvider.client)
+    val recentSearchStore: RecentSearchStore = RecentSearchStore(applicationContext)
 }
 
 internal val Context.serviceLocator: ServiceLocator

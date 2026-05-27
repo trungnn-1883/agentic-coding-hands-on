@@ -99,6 +99,33 @@
     <string name="kudo_detail_title">Kudo</string>
     <string name="kudo_detail_copy_link_toast">リンクをコピーしました</string>
     <string name="kudo_detail_share_link_stub" translatable="false">saa://kudo/share</string>
+    <string name="kudo_detail_anonymous_label">匿名の送信者</string>
+
+    <!-- Send Kudo screen -->
+    <string name="kudo_compose_title">New Kudo</string>
+    <string name="kudo_compose_card_title">仲間に感謝と称賛を送ろう</string>
+    <string name="kudo_compose_field_recipient">受信者</string>
+    <string name="kudo_compose_field_award_title">タイトル</string>
+    <string name="kudo_compose_field_award_title_hint">タイトルを入力…</string>
+    <string name="kudo_compose_award_hint">例: 私の最大のモチベーター。\nタイトルは Kudo の見出しとして表示されます。</string>
+    <string name="kudo_compose_body_hint">"@ + 名前" で同僚をメンションできます</string>
+    <string name="kudo_compose_field_hashtag">ハッシュタグ</string>
+    <string name="kudo_compose_field_image">画像</string>
+    <string name="kudo_compose_anonymous">匿名で感謝と称賛を送る</string>
+    <string name="kudo_compose_field_nickname">匿名ニックネーム</string>
+    <string name="kudo_compose_cancel">キャンセル</string>
+    <string name="kudo_compose_send">送信</string>
+    <string name="kudo_compose_error_required">Kudo を送るには、受信者・タイトル・本文・ハッシュタグをすべて入力してください！</string>
+    <string name="kudo_compose_error_self">自分自身に Kudo を送ることはできません。</string>
+    <string name="kudo_compose_recipient_hint">検索</string>
+    <string name="kudo_compose_body_placeholder">仲間への感謝と称賛をここに書いてね！</string>
+
+    <!-- Sunner search screen -->
+    <string name="sunner_search_hint">Search Sunner</string>
+    <string name="sunner_search_recent">Recent</string>
+    <string name="sunner_search_view_all">View all</string>
+    <string name="sunner_search_empty">一致する結果が見つかりません</string>
+    <string name="sunner_search_remove_cd">最近の検索から削除</string>
 
     <string name="home_welcome">こんにちは、%1$s さん</string>
     <string name="home_logout">ログアウト</string>

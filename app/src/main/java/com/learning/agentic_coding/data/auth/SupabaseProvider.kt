@@ -5,6 +5,8 @@ import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.auth.Auth
 import io.github.jan.supabase.createSupabaseClient
 import io.github.jan.supabase.postgrest.Postgrest
+import io.github.jan.supabase.storage.Storage
+
 
 /**
  * App-wide Supabase client. URL + anon key are surfaced through [BuildConfig] from
@@ -18,6 +20,7 @@ object SupabaseProvider {
         ) {
             install(Auth)
             install(Postgrest)
+            install(Storage)
         }
     }
 }

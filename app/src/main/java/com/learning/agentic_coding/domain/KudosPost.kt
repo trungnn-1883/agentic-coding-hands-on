@@ -17,6 +17,8 @@ data class KudosPost(
     val postedAt: OffsetDateTime,
     val isHighlight: Boolean,
     val attachedImages: List<String> = emptyList(),
+    val isAnonymous: Boolean = false,
+    val anonNickname: String? = null,
 )
 
 /** Sender or receiver side of a Kudos card (name + dept code + badge). */

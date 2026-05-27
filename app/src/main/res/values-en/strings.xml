@@ -99,6 +99,33 @@
     <string name="kudo_detail_title">Kudo</string>
     <string name="kudo_detail_copy_link_toast">Link copied</string>
     <string name="kudo_detail_share_link_stub" translatable="false">saa://kudo/share</string>
+    <string name="kudo_detail_anonymous_label">Anonymous sender</string>
+
+    <!-- Send Kudo screen -->
+    <string name="kudo_compose_title">New Kudo</string>
+    <string name="kudo_compose_card_title">Send thanks and recognition to a teammate</string>
+    <string name="kudo_compose_field_recipient">Recipient</string>
+    <string name="kudo_compose_field_award_title">Title</string>
+    <string name="kudo_compose_field_award_title_hint">Give a title to…</string>
+    <string name="kudo_compose_award_hint">Example: My biggest motivator.\nThe title will appear as the heading of your Kudo.</string>
+    <string name="kudo_compose_body_hint">You can type "@ + name" to mention a teammate</string>
+    <string name="kudo_compose_field_hashtag">Hashtag</string>
+    <string name="kudo_compose_field_image">Image</string>
+    <string name="kudo_compose_anonymous">Send thanks and recognition anonymously</string>
+    <string name="kudo_compose_field_nickname">Anonymous nickname</string>
+    <string name="kudo_compose_cancel">Cancel</string>
+    <string name="kudo_compose_send">Send</string>
+    <string name="kudo_compose_error_required">You must fill in Recipient, Title, message body, and Hashtag to send a Kudo!</string>
+    <string name="kudo_compose_error_self">You cannot send a Kudo to yourself.</string>
+    <string name="kudo_compose_recipient_hint">Search</string>
+    <string name="kudo_compose_body_placeholder">Share your thanks and recognition for your teammate here!</string>
+
+    <!-- Sunner search screen -->
+    <string name="sunner_search_hint">Search Sunner</string>
+    <string name="sunner_search_recent">Recent</string>
+    <string name="sunner_search_view_all">View all</string>
+    <string name="sunner_search_empty">No matching results found</string>
+    <string name="sunner_search_remove_cd">Remove from recent searches</string>
 
     <string name="home_welcome">Welcome, %1$s</string>
     <string name="home_logout">Log out</string>

@@ -42,6 +42,7 @@ fun HomeScreen(
     onRetryAwards: () -> Unit,
     onAwardClick: (Award) -> Unit = {},
     onTabClick: (HomeTab) -> Unit = {},
+    onComposeKudo: () -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     Box(
@@ -95,8 +96,8 @@ fun HomeScreen(
         }
 
         HomeFab(
-            onPenClick = {},
-            onKudosClick = {},
+            onPenClick = onComposeKudo,
+            onKudosClick = { onTabClick(HomeTab.KUDOS) },
             modifier = Modifier
                 .align(Alignment.BottomEnd)
                 .padding(end = 16.dp, bottom = 128.dp),
