@@ -151,6 +151,7 @@ private fun KudoDetailBody(
             heartDelta = state.heartDelta,
             isLiked = state.isLiked,
             onHeartToggle = onHeartToggle,
+            anonymousLabel = stringResource(R.string.kudo_detail_anonymous_label),
         )
     }
 }
@@ -161,6 +162,7 @@ private fun KudoDetailCard(
     heartDelta: Int,
     isLiked: Boolean,
     onHeartToggle: () -> Unit,
+    anonymousLabel: String,
 ) {
     Column(
         modifier = Modifier
@@ -177,7 +179,13 @@ private fun KudoDetailCard(
                 .padding(horizontal = 16.dp, vertical = 16.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
-            DetailHeader(sender = post.sender, receiver = post.receiver)
+            DetailHeader(
+                sender = post.sender,
+                receiver = post.receiver,
+                isAnonymous = post.isAnonymous,
+                anonNickname = post.anonNickname,
+                anonymousLabel = anonymousLabel,
+            )
             ThinDivider()
             Text(
                 text = KudosFormatters.cardTimestamp(post.postedAt),
@@ -224,9 +232,23 @@ private fun KudoDetailCard(
 }
 
 @Composable
-private fun DetailHeader(sender: KudosParty, receiver: KudosParty) {
+private fun DetailHeader(
+    sender: KudosParty,
+    receiver: KudosParty,
+    isAnonymous: Boolean,
+    anonNickname: String?,
+    anonymousLabel: String,
+) {
     Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.Top) {
-        PartyBlock(party = sender, modifier = Modifier.weight(1f))
+        if (isAnonymous) {
+            AnonymousSenderBlock(
+                nickname = anonNickname.orEmpty(),
+                label = anonymousLabel,
+                modifier = Modifier.weight(1f),
+            )
+        } else {
+            PartyBlock(party = sender, modifier = Modifier.weight(1f))
+        }
         Box(
             modifier = Modifier.size(width = 36.dp, height = 36.dp),
             contentAlignment = Alignment.Center,
@@ -239,6 +261,46 @@ private fun DetailHeader(sender: KudosParty, receiver: KudosParty) {
             )
         }
         PartyBlock(party = receiver, modifier = Modifier.weight(1f))
+    }
+}
+
+@Composable
+private fun AnonymousSenderBlock(nickname: String, label: String, modifier: Modifier = Modifier) {
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.spacedBy(6.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        Box(
+            modifier = Modifier
+                .size(40.dp)
+                .clip(androidx.compose.foundation.shape.CircleShape)
+                .background(Color.White),
+            contentAlignment = Alignment.Center,
+        ) {
+            Icon(
+                painter = painterResource(R.drawable.ic_mask),
+                contentDescription = null,
+                tint = Color.Unspecified,
+                modifier = Modifier.size(28.dp),
+            )
+        }
+        Text(
+            text = nickname,
+            color = colorResource(R.color.saa_kudos_card_text),
+            fontSize = 13.sp,
+            fontWeight = FontWeight.SemiBold,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+            modifier = Modifier.fillMaxWidth(),
+            textAlign = TextAlign.Center,
+        )
+        Text(
+            text = label,
+            color = colorResource(R.color.saa_kudos_card_subtext),
+            fontSize = 11.sp,
+            fontWeight = FontWeight.Medium,
+        )
     }
 }
 

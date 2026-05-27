@@ -58,6 +58,8 @@ fun KudosHomeScreen(
     onRetry: () -> Unit,
     onTabClick: (HomeTab) -> Unit,
     onDetailClick: (String) -> Unit,
+    onComposeClick: () -> Unit = {},
+    onSearchClick: () -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     Box(
@@ -75,7 +77,7 @@ fun KudosHomeScreen(
                     language = state.language,
                     notificationUnread = 1,
                     onLanguageSelect = onLanguageSelect,
-                    onSearchClick = {},
+                    onSearchClick = onSearchClick,
                     onNotificationsClick = {},
                 )
             }
@@ -86,6 +88,7 @@ fun KudosHomeScreen(
                 onViewAllKudos = onViewAllKudos,
                 onRetry = onRetry,
                 onDetailClick = onDetailClick,
+                onComposeClick = onComposeClick,
                 modifier = Modifier.weight(1f),
             )
             HomeBottomNav(activeTab = HomeTab.KUDOS, onTabClick = onTabClick)
@@ -101,6 +104,7 @@ private fun KudosHomeBody(
     onViewAllKudos: () -> Unit,
     onRetry: () -> Unit,
     onDetailClick: (String) -> Unit,
+    onComposeClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     when (val data = state.data) {
@@ -113,6 +117,7 @@ private fun KudosHomeBody(
             onHashtagSelect = onHashtagSelect,
             onViewAllKudos = onViewAllKudos,
             onDetailClick = onDetailClick,
+            onComposeClick = onComposeClick,
             modifier = modifier,
         )
     }
@@ -127,6 +132,7 @@ private fun KudosHomeContent(
     onHashtagSelect: (String?) -> Unit,
     onViewAllKudos: () -> Unit,
     onDetailClick: (String) -> Unit,
+    onComposeClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val highlightPosts = data.posts.filter { it.isHighlight }
@@ -142,7 +148,10 @@ private fun KudosHomeContent(
             Box {
                 KudosKvBackground()
                 Column {
-                    KudosHero(modifier = Modifier.padding(top = 12.dp))
+                    KudosHero(
+                        modifier = Modifier.padding(top = 12.dp),
+                        onComposeClick = onComposeClick,
+                    )
                     Box(modifier = Modifier.height(40.dp))
                     KudosSectionHeading(title = stringResource(R.string.kudos_highlight_title))
                     Box(modifier = Modifier.height(24.dp))

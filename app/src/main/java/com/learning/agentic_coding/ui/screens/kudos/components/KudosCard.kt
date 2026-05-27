@@ -58,7 +58,12 @@ fun KudosCard(
             .padding(horizontal = 14.dp, vertical = 14.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        KudosCardHeader(sender = post.sender, receiver = post.receiver)
+        KudosCardHeader(
+            sender = post.sender,
+            receiver = post.receiver,
+            isAnonymous = post.isAnonymous,
+            anonNickname = post.anonNickname,
+        )
         ThinDivider()
         Text(
             text = KudosFormatters.cardTimestamp(post.postedAt),
@@ -84,12 +89,24 @@ fun KudosCard(
 }
 
 @Composable
-private fun KudosCardHeader(sender: KudosParty, receiver: KudosParty) {
+private fun KudosCardHeader(
+    sender: KudosParty,
+    receiver: KudosParty,
+    isAnonymous: Boolean,
+    anonNickname: String?,
+) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.Top,
     ) {
-        PartyBlock(party = sender, modifier = Modifier.weight(1f))
+        if (isAnonymous) {
+            AnonymousPartyBlock(
+                nickname = anonNickname.orEmpty(),
+                modifier = Modifier.weight(1f),
+            )
+        } else {
+            PartyBlock(party = sender, modifier = Modifier.weight(1f))
+        }
         Box(
             modifier = Modifier.size(width = 32.dp, height = 32.dp),
             contentAlignment = Alignment.Center,
@@ -102,6 +119,46 @@ private fun KudosCardHeader(sender: KudosParty, receiver: KudosParty) {
             )
         }
         PartyBlock(party = receiver, modifier = Modifier.weight(1f))
+    }
+}
+
+@Composable
+private fun AnonymousPartyBlock(nickname: String, modifier: Modifier = Modifier) {
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.spacedBy(6.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        Box(
+            modifier = Modifier
+                .size(32.dp)
+                .clip(androidx.compose.foundation.shape.CircleShape)
+                .background(Color.White),
+            contentAlignment = Alignment.Center,
+        ) {
+            Icon(
+                painter = painterResource(R.drawable.ic_mask),
+                contentDescription = null,
+                tint = Color.Unspecified,
+                modifier = Modifier.size(22.dp),
+            )
+        }
+        Text(
+            text = nickname,
+            color = colorResource(R.color.saa_kudos_card_text),
+            fontSize = 12.sp,
+            fontWeight = FontWeight.SemiBold,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+            modifier = Modifier.fillMaxWidth(),
+            textAlign = TextAlign.Center,
+        )
+        Text(
+            text = stringResource(R.string.kudo_detail_anonymous_label),
+            color = colorResource(R.color.saa_kudos_card_subtext),
+            fontSize = 10.sp,
+            fontWeight = FontWeight.Medium,
+        )
     }
 }
 

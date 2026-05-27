@@ -2,8 +2,10 @@ package com.learning.agentic_coding.data.kudos
 
 import com.learning.agentic_coding.domain.KudosBadge
 import com.learning.agentic_coding.domain.KudosGiftRecipient
+import com.learning.agentic_coding.domain.KudosHashtag
 import com.learning.agentic_coding.domain.KudosParty
 import com.learning.agentic_coding.domain.KudosPost
+import com.learning.agentic_coding.domain.KudosRecipient
 import com.learning.agentic_coding.domain.KudosUserStats
 import java.time.OffsetDateTime
 import java.time.ZoneOffset
@@ -30,6 +32,8 @@ internal data class KudosPostRow(
     @SerialName("posted_at") val postedAt: String,
     @SerialName("is_highlight") val isHighlight: Boolean = false,
     @SerialName("display_order") val displayOrder: Int = 0,
+    @SerialName("is_anonymous") val isAnonymous: Boolean = false,
+    @SerialName("anon_nickname") val anonNickname: String? = null,
 ) {
     fun toDomain(attachedImages: List<String> = emptyList()): KudosPost = KudosPost(
         id = id,
@@ -42,8 +46,71 @@ internal data class KudosPostRow(
         postedAt = parsePostgrestTimestamp(postedAt),
         isHighlight = isHighlight,
         attachedImages = attachedImages,
+        isAnonymous = isAnonymous,
+        anonNickname = anonNickname,
     )
 }
+
+/** Wire shape for `kudos_recipients` rows. */
+@Serializable
+internal data class KudosRecipientRow(
+    val id: String,
+    val email: String? = null,
+    val name: String,
+    val dept: String,
+    val badge: String,
+    @SerialName("avatar_url") val avatarUrl: String? = null,
+    @SerialName("display_order") val displayOrder: Int = 0,
+) {
+    fun toDomain(): KudosRecipient = KudosRecipient(
+        id = id,
+        email = email,
+        name = name,
+        dept = dept,
+        badge = KudosBadge.fromWire(badge),
+        avatarUrl = avatarUrl,
+    )
+}
+
+/** Wire shape for `kudos_hashtags` rows. */
+@Serializable
+internal data class KudosHashtagRow(
+    val id: String,
+    val tag: String,
+    @SerialName("display_order") val displayOrder: Int = 0,
+) {
+    fun toDomain(): KudosHashtag = KudosHashtag(id = id, tag = tag)
+}
+
+/** Insert payload for `kudos_posts`. id/posted_at default-generated server-side. */
+@Serializable
+data class KudosPostInsert(
+    @SerialName("sender_name") val senderName: String,
+    @SerialName("sender_dept") val senderDept: String,
+    @SerialName("sender_badge") val senderBadge: String,
+    @SerialName("sender_avatar_url") val senderAvatarUrl: String? = null,
+    @SerialName("receiver_name") val receiverName: String,
+    @SerialName("receiver_dept") val receiverDept: String,
+    @SerialName("receiver_badge") val receiverBadge: String,
+    @SerialName("receiver_avatar_url") val receiverAvatarUrl: String? = null,
+    val title: String,
+    val content: String,
+    val hashtags: List<String>,
+    @SerialName("is_anonymous") val isAnonymous: Boolean = false,
+    @SerialName("anon_nickname") val anonNickname: String? = null,
+)
+
+@Serializable
+internal data class KudoImageInsert(
+    @SerialName("kudo_id") val kudoId: String,
+    @SerialName("image_url") val imageUrl: String,
+    // No default: kotlinx omits default-valued props, which would drop sort_order for the
+    // idx=0 row and trip the NOT-NULL constraint in a multi-row insert. Always serialize it.
+    @SerialName("sort_order") val sortOrder: Int,
+)
+
+@Serializable
+internal data class KudosInsertedRow(val id: String)
 
 @Serializable
 internal data class KudoImageRow(

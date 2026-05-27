@@ -16,6 +16,7 @@ fun HomeRoute(
     viewModel: HomeViewModel,
     onAwardClick: (Award) -> Unit,
     onTabClick: (HomeTab) -> Unit,
+    onComposeKudo: () -> Unit = {},
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     HomeScreen(
@@ -24,5 +25,6 @@ fun HomeRoute(
         onRetryAwards = viewModel::retryAwards,
         onAwardClick = onAwardClick,
         onTabClick = onTabClick,
+        onComposeKudo = onComposeKudo,
     )
 }
