@@ -14,6 +14,7 @@ import com.learning.agentic_coding.ui.screens.home.components.HomeTab
 fun AwardDetailRoute(
     viewModel: AwardDetailViewModel,
     onTabClick: (HomeTab) -> Unit,
+    onNotificationsClick: () -> Unit = {},
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     AwardDetailScreen(
@@ -23,5 +24,6 @@ fun AwardDetailRoute(
         onAwardSelect = { viewModel.selectAward(it.slug) },
         onRetry = viewModel::retry,
         onTabClick = onTabClick,
+        onNotificationsClick = onNotificationsClick,
     )
 }

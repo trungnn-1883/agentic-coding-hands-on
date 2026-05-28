@@ -58,4 +58,14 @@
     <color name="saa_kudos_idol_title">#FF1A1A1A</color>
     <color name="saa_kudos_white_dim">#B3FFFFFF</color>
     <color name="saa_kudos_content_bg_40">#66FFEA9E</color>
+
+    <!-- Notifications screen — per-type icon tints (eyedropped from MoMorph _b68CBWKl5) -->
+    <color name="saa_notif_envelope">#FF5BB8E0</color>
+    <color name="saa_notif_heart">#FFFF6464</color>
+    <color name="saa_notif_gift">#FFFFD557</color>
+    <color name="saa_notif_star">#FF4DD0E1</color>
+    <color name="saa_notif_warning">#FFFFD840</color>
+    <color name="saa_notif_note">#FF66BB6A</color>
+    <color name="saa_notif_flag">#FFEC407A</color>
+    <color name="saa_notif_inline_link">#FFFFE49A</color>
 </resources>

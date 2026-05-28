@@ -62,6 +62,7 @@ fun KudosHomeScreen(
     onSearchClick: () -> Unit = {},
     onRulesClick: () -> Unit = {},
     onOpenSecretBox: () -> Unit = {},
+    onNotificationsClick: () -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     Box(
@@ -77,10 +78,10 @@ fun KudosHomeScreen(
             ) {
                 HomeHeader(
                     language = state.language,
-                    notificationUnread = 1,
+                    notificationUnread = state.notificationUnread,
                     onLanguageSelect = onLanguageSelect,
                     onSearchClick = onSearchClick,
-                    onNotificationsClick = {},
+                    onNotificationsClick = onNotificationsClick,
                     onInfoClick = onRulesClick,
                 )
             }

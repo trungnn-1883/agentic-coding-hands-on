@@ -55,6 +55,7 @@ fun AwardDetailScreen(
     onAwardSelect: (Award) -> Unit,
     onRetry: () -> Unit,
     onTabClick: (HomeTab) -> Unit,
+    onNotificationsClick: () -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     Box(
@@ -75,7 +76,7 @@ fun AwardDetailScreen(
                     notificationUnread = state.notificationUnread,
                     onLanguageSelect = onLanguageSelect,
                     onSearchClick = {},
-                    onNotificationsClick = {},
+                    onNotificationsClick = onNotificationsClick,
                 )
             }
             LazyColumn(

@@ -136,6 +136,21 @@
     <string name="secret_box_box_cd">Secret Box</string>
     <string name="secret_box_reward_cd">Reward</string>
 
+    <!-- Notifications -->
+    <string name="notifications_topbar_title">Notifications</string>
+    <string name="notifications_mark_all_read">Mark all as read</string>
+    <string name="notifications_empty">No notifications yet</string>
+    <string name="notifications_error">Could not load notifications</string>
+    <string name="notifications_retry">Try again</string>
+    <string name="notifications_unread_cd">Unread</string>
+    <string name="notifications_icon_cd">Notification type</string>
+    <string name="notifications_inline_community_standards">Community standards</string>
+    <string name="notifications_time_just_now">Just now</string>
+    <string name="notifications_time_minutes_ago">%1$d min ago</string>
+    <string name="notifications_time_hours_ago">%1$d h ago</string>
+    <string name="notifications_time_days_ago">%1$d d ago</string>
+    <string name="notifications_time_months_ago">%1$d mo ago</string>
+
     <string name="home_welcome">Welcome, %1$s</string>
     <string name="home_logout">Log out</string>
 </resources>

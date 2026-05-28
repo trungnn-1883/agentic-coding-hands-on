@@ -43,6 +43,7 @@ fun HomeScreen(
     onAwardClick: (Award) -> Unit = {},
     onTabClick: (HomeTab) -> Unit = {},
     onComposeKudo: () -> Unit = {},
+    onNotificationsClick: () -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     Box(
@@ -62,7 +63,7 @@ fun HomeScreen(
                     notificationUnread = state.notificationUnread,
                     onLanguageSelect = onLanguageSelect,
                     onSearchClick = {},
-                    onNotificationsClick = {},
+                    onNotificationsClick = onNotificationsClick,
                 )
             }
             LazyColumn(

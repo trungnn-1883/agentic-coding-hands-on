@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.learning.agentic_coding.data.kudos.KudosRepository
 import com.learning.agentic_coding.data.kudos.KudosResult
 import com.learning.agentic_coding.data.locale.LocaleRepository
+import com.learning.agentic_coding.data.notifications.NotificationsRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -21,6 +22,7 @@ import kotlinx.coroutines.flow.stateIn
 class KudosHomeViewModel(
     private val kudosRepository: KudosRepository,
     private val localeRepository: LocaleRepository,
+    private val notificationsRepository: NotificationsRepository,
 ) : ViewModel() {
 
     private val refreshTicker = MutableStateFlow(0)
@@ -34,8 +36,15 @@ class KudosHomeViewModel(
         dataFlow,
         departmentFilter,
         hashtagFilter,
-    ) { language, data, dept, hashtag ->
-        KudosHomeUiState(language = language, data = data, departmentFilter = dept, hashtagFilter = hashtag)
+        notificationsRepository.unreadCount,
+    ) { language, data, dept, hashtag, unread ->
+        KudosHomeUiState(
+            language = language,
+            data = data,
+            departmentFilter = dept,
+            hashtagFilter = hashtag,
+            notificationUnread = unread,
+        )
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000L),
