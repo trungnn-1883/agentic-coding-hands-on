@@ -17,6 +17,7 @@ fun KudoComposeRoute(
     onBack: () -> Unit,
     onSent: () -> Unit,
     onTabClick: (HomeTab) -> Unit,
+    onOpenCommunityStandards: () -> Unit = {},
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     val context = LocalContext.current
@@ -45,5 +46,6 @@ fun KudoComposeRoute(
         onAnonNicknameChange = viewModel::onAnonNicknameChange,
         onSubmit = viewModel::onSubmit,
         onTabClick = onTabClick,
+        onOpenCommunityStandards = onOpenCommunityStandards,
     )
 }

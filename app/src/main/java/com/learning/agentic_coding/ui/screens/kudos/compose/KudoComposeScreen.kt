@@ -41,6 +41,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.learning.agentic_coding.R
@@ -85,6 +86,7 @@ fun KudoComposeScreen(
     onAnonNicknameChange: (String) -> Unit,
     onSubmit: () -> Unit,
     onTabClick: (HomeTab) -> Unit,
+    onOpenCommunityStandards: () -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     var hashtagExpanded by remember { mutableStateOf(false) }
@@ -95,7 +97,10 @@ fun KudoComposeScreen(
             .background(colorResource(R.color.saa_bg_dark)),
     ) {
         Column(modifier = Modifier.fillMaxSize()) {
-            Box(modifier = Modifier.fillMaxWidth().weight(1f).statusBarsPadding()) {
+            Box(modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f)
+                .statusBarsPadding()) {
                 KudosKvBackground(heightDp = 900)
                 Column(modifier = Modifier.fillMaxSize()) {
                     TopBar(onBack = onBack)
@@ -117,6 +122,7 @@ fun KudoComposeScreen(
                         onAnonNicknameChange = onAnonNicknameChange,
                         onSubmit = onSubmit,
                         onCancel = onBack,
+                        onOpenCommunityStandards = onOpenCommunityStandards,
                     )
                 }
             }
@@ -128,11 +134,16 @@ fun KudoComposeScreen(
 @Composable
 private fun TopBar(onBack: () -> Unit) {
     Row(
-        modifier = Modifier.fillMaxWidth().height(48.dp).padding(horizontal = 12.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(48.dp)
+            .padding(horizontal = 12.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Box(
-            modifier = Modifier.size(40.dp).clickable(onClick = onBack),
+            modifier = Modifier
+                .size(40.dp)
+                .clickable(onClick = onBack),
             contentAlignment = Alignment.Center,
         ) {
             Icon(
@@ -147,7 +158,9 @@ private fun TopBar(onBack: () -> Unit) {
             color = colorResource(R.color.saa_text_primary),
             fontSize = 16.sp,
             fontWeight = FontWeight.SemiBold,
-            modifier = Modifier.weight(1f).padding(end = 40.dp),
+            modifier = Modifier
+                .weight(1f)
+                .padding(end = 40.dp),
             textAlign = TextAlign.Center,
         )
     }
@@ -172,6 +185,7 @@ private fun FormCard(
     onAnonNicknameChange: (String) -> Unit,
     onSubmit: () -> Unit,
     onCancel: () -> Unit,
+    onOpenCommunityStandards: () -> Unit = {},
 ) {
     Column(
         modifier = Modifier
@@ -202,7 +216,10 @@ private fun FormCard(
                 textAlign = TextAlign.Center,
             )
 
-            FieldRow(label = stringResource(R.string.kudo_compose_field_recipient), required = true) {
+            FieldRow(
+                label = stringResource(R.string.kudo_compose_field_recipient),
+                required = true
+            ) {
                 RecipientDropdown(
                     query = state.recipientQuery,
                     results = state.filteredRecipients,
@@ -212,7 +229,10 @@ private fun FormCard(
                 )
             }
 
-            FieldRow(label = stringResource(R.string.kudo_compose_field_award_title), required = true) {
+            FieldRow(
+                label = stringResource(R.string.kudo_compose_field_award_title),
+                required = true
+            ) {
                 BoxedTextInput(
                     value = state.title,
                     placeholder = stringResource(R.string.kudo_compose_field_award_title_hint),
@@ -232,6 +252,7 @@ private fun FormCard(
                 onChange = onBodyChange,
                 onSpansChange = onBodySpansChange,
                 onPendingChange = onPendingFormatsChange,
+                onOpenCommunityStandards = onOpenCommunityStandards
             )
             Text(
                 text = stringResource(R.string.kudo_compose_body_hint),
@@ -266,7 +287,10 @@ private fun FormCard(
             )
 
             if (state.isAnonymous) {
-                FieldRow(label = stringResource(R.string.kudo_compose_field_nickname), required = true) {
+                FieldRow(
+                    label = stringResource(R.string.kudo_compose_field_nickname),
+                    required = true
+                ) {
                     BoxedTextInput(
                         value = state.anonNickname,
                         placeholder = "Doraemon",
@@ -301,11 +325,38 @@ private fun FormCard(
                 )
             }
         }
-
         ActionButtonsRow(
             isSubmitting = state.submitState is SubmitState.Submitting,
             onCancel = onCancel,
             onSubmit = onSubmit,
+        )
+    }
+}
+
+@Composable
+private fun CommunityStandardsLink(onClick: () -> Unit) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(8.dp))
+            .clickable(onClick = onClick)
+            .padding(vertical = 12.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center,
+    ) {
+        Icon(
+            painter = painterResource(R.drawable.ic_info),
+            contentDescription = null,
+            tint = colorResource(R.color.saa_button_yellow),
+            modifier = Modifier.size(16.dp),
+        )
+        Spacer(modifier = Modifier.size(6.dp))
+        Text(
+            text = stringResource(R.string.kudo_compose_community_standards),
+            color = colorResource(R.color.saa_button_yellow),
+            fontSize = 13.sp,
+            fontWeight = FontWeight.SemiBold,
+            textDecoration = TextDecoration.Underline,
         )
     }
 }
@@ -316,7 +367,9 @@ private fun FieldRow(label: String, required: Boolean, content: @Composable () -
         modifier = Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.Top,
     ) {
-        Column(modifier = Modifier.padding(top = 8.dp).fillMaxWidth(0.30f)) {
+        Column(modifier = Modifier
+            .padding(top = 8.dp)
+            .fillMaxWidth(0.30f)) {
             Row {
                 Text(
                     text = label,
@@ -387,6 +440,7 @@ private fun BodyEditor(
     onChange: (String) -> Unit,
     onSpansChange: (List<FormatSpan>) -> Unit,
     onPendingChange: (Set<SpanType>) -> Unit,
+    onOpenCommunityStandards: () -> Unit = {},
 ) {
     // Only the caret/selection is local — text + spans + pending live in the VM so they
     // survive navigating away and back (the composable's remembered state would be lost).
@@ -424,7 +478,11 @@ private fun BodyEditor(
                 .height(108.dp)
                 .clip(RoundedCornerShape(8.dp))
                 .background(Color.White)
-                .border(1.dp, colorResource(R.color.saa_kudos_card_divider), RoundedCornerShape(8.dp))
+                .border(
+                    1.dp,
+                    colorResource(R.color.saa_kudos_card_divider),
+                    RoundedCornerShape(8.dp)
+                )
                 .padding(10.dp),
         ) {
             BasicTextField(
@@ -457,14 +515,17 @@ private fun BodyEditor(
             activeFormats = activeSpanTypes(spans, field.selection).let {
                 if (field.selection.collapsed) it + pendingFormats else it
             },
-        )
+            onOpenCommunityStandards = onOpenCommunityStandards,
+            )
     }
 }
 
 @Composable
 private fun AnonymousToggleRow(isChecked: Boolean, onToggle: () -> Unit) {
     Row(
-        modifier = Modifier.fillMaxWidth().clickable(onClick = onToggle),
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable(onClick = onToggle),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
@@ -552,7 +613,10 @@ private fun ActionButton(
         )
         Spacer(modifier = Modifier.size(8.dp))
         Box(
-            modifier = Modifier.size(18.dp).clip(CircleShape).background(Color.White.copy(alpha = 0.2f)),
+            modifier = Modifier
+                .size(18.dp)
+                .clip(CircleShape)
+                .background(Color.White.copy(alpha = 0.2f)),
             contentAlignment = Alignment.Center,
         ) {
             Text(text = iconText, color = textColor, fontSize = 12.sp, fontWeight = FontWeight.Bold)

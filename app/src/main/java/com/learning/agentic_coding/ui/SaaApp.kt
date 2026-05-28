@@ -23,6 +23,8 @@ import com.learning.agentic_coding.ui.screens.kudos.compose.KudoComposeRoute
 import com.learning.agentic_coding.ui.screens.kudos.compose.KudoComposeViewModel
 import com.learning.agentic_coding.ui.screens.kudos.detail.KudoDetailRoute
 import com.learning.agentic_coding.ui.screens.kudos.detail.KudoDetailViewModel
+import com.learning.agentic_coding.ui.screens.kudos.info.CommunityStandardsScreen
+import com.learning.agentic_coding.ui.screens.kudos.info.RulesScreen
 import com.learning.agentic_coding.ui.screens.kudos.main.KudosHomeRoute
 import com.learning.agentic_coding.ui.screens.kudos.main.KudosHomeViewModel
 import com.learning.agentic_coding.ui.screens.kudos.search.SunnerSearchRoute
@@ -98,6 +100,8 @@ fun SaaApp(services: ServiceLocator) {
             }
             val openKudoCompose: () -> Unit = { destination = AppDestination.KudoCompose }
             val openSunnerSearch: () -> Unit = { destination = AppDestination.SunnerSearch }
+            val openCommunityStandards: () -> Unit = { destination = AppDestination.CommunityStandards }
+            val openRules: () -> Unit = { destination = AppDestination.Rules }
             when (val dest = destination) {
                 is AppDestination.Home -> HomeRoute(
                     viewModel = homeViewModel,
@@ -134,6 +138,7 @@ fun SaaApp(services: ServiceLocator) {
                     onTabClick = tabRouter,
                     onComposeClick = openKudoCompose,
                     onSearchClick = openSunnerSearch,
+                    onRulesClick = openRules,
                 )
                 is AppDestination.AllKudos -> AllKudosRoute(
                     viewModel = allKudosViewModel,
@@ -159,6 +164,7 @@ fun SaaApp(services: ServiceLocator) {
                         onBack = { destination = AppDestination.KudosHome },
                         onSent = { destination = AppDestination.KudosHome },
                         onTabClick = tabRouter,
+                        onOpenCommunityStandards = openCommunityStandards,
                     )
                 }
                 is AppDestination.SunnerSearch -> {
@@ -200,6 +206,13 @@ fun SaaApp(services: ServiceLocator) {
                         onTabClick = tabRouter,
                     )
                 }
+                is AppDestination.CommunityStandards -> CommunityStandardsScreen(
+                    onBack = { destination = AppDestination.KudoCompose },
+                )
+                is AppDestination.Rules -> RulesScreen(
+                    onClose = { destination = AppDestination.KudosHome },
+                    onWriteKudos = { destination = AppDestination.KudoCompose },
+                )
             }
         }
     }
@@ -216,4 +229,6 @@ sealed interface AppDestination {
     data class KudoDetail(val id: String) : AppDestination
     data object KudoCompose : AppDestination
     data object SunnerSearch : AppDestination
+    data object CommunityStandards : AppDestination
+    data object Rules : AppDestination
 }

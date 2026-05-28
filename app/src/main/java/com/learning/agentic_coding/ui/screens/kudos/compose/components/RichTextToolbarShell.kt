@@ -73,6 +73,7 @@ fun RichTextToolbar(
     onFormat: (TextFormat) -> Unit,
     activeFormats: Set<SpanType>,
     modifier: Modifier = Modifier,
+    onOpenCommunityStandards: () -> Unit = {},
 ) {
     Row(
         modifier = modifier
@@ -85,9 +86,21 @@ fun RichTextToolbar(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(10.dp),
     ) {
-        GlyphButton("B", TextStyle(fontWeight = FontWeight.Bold), SpanType.Bold in activeFormats) { onFormat(TextFormat.Bold) }
-        GlyphButton("I", TextStyle(fontStyle = FontStyle.Italic), SpanType.Italic in activeFormats) { onFormat(TextFormat.Italic) }
-        GlyphButton("S", TextStyle(textDecoration = TextDecoration.LineThrough), SpanType.Strikethrough in activeFormats) { onFormat(TextFormat.Strikethrough) }
+        GlyphButton(
+            "B",
+            TextStyle(fontWeight = FontWeight.Bold),
+            SpanType.Bold in activeFormats
+        ) { onFormat(TextFormat.Bold) }
+        GlyphButton(
+            "I",
+            TextStyle(fontStyle = FontStyle.Italic),
+            SpanType.Italic in activeFormats
+        ) { onFormat(TextFormat.Italic) }
+        GlyphButton(
+            "S",
+            TextStyle(textDecoration = TextDecoration.LineThrough),
+            SpanType.Strikethrough in activeFormats
+        ) { onFormat(TextFormat.Strikethrough) }
         IconButton(R.drawable.ic_format_list_numbered) { onFormat(TextFormat.NumberedList) }
         IconButton(R.drawable.ic_format_link) { onFormat(TextFormat.Link) }
         IconButton(R.drawable.ic_format_quote) { onFormat(TextFormat.Quote) }
@@ -103,7 +116,10 @@ fun RichTextToolbar(
             color = colorResource(R.color.saa_kudos_hashtag_red),
             fontSize = 11.sp,
             fontWeight = FontWeight.Medium,
-            modifier = Modifier.padding(start = 10.dp),
+
+            modifier = Modifier
+                .padding(start = 10.dp)
+                .clickable(onClick = onOpenCommunityStandards),
         )
     }
 }
@@ -134,7 +150,9 @@ private fun GlyphButton(
 @Composable
 private fun IconButton(iconRes: Int, onClick: () -> Unit) {
     Box(
-        modifier = Modifier.size(20.dp).clickable(onClick = onClick),
+        modifier = Modifier
+            .size(20.dp)
+            .clickable(onClick = onClick),
         contentAlignment = Alignment.Center,
     ) {
         Icon(
@@ -150,17 +168,18 @@ private fun IconButton(iconRes: Int, onClick: () -> Unit) {
  * Builds a [VisualTransformation] that renders [spans] over the editor text using [SpanStyle].
  * Text length is unchanged, so offset mapping is identity.
  */
-fun styledTransformation(spans: List<FormatSpan>): VisualTransformation = VisualTransformation { source ->
-    val styled = buildAnnotatedString {
-        append(source.text)
-        spans.forEach { span ->
-            val s = span.start.coerceIn(0, source.length)
-            val e = span.end.coerceIn(s, source.length)
-            if (e > s) addStyle(span.type.style, s, e)
+fun styledTransformation(spans: List<FormatSpan>): VisualTransformation =
+    VisualTransformation { source ->
+        val styled = buildAnnotatedString {
+            append(source.text)
+            spans.forEach { span ->
+                val s = span.start.coerceIn(0, source.length)
+                val e = span.end.coerceIn(s, source.length)
+                if (e > s) addStyle(span.type.style, s, e)
+            }
         }
+        TransformedText(styled, OffsetMapping.Identity)
     }
-    TransformedText(styled, OffsetMapping.Identity)
-}
 
 /**
  * Toggles a [type] span over [selection]: removes any same-type span overlapping the range
@@ -245,12 +264,15 @@ fun applyStructure(value: TextFieldValue, format: TextFormat): TextFieldValue {
             val urlStart = start + insert.indexOf("url")
             TextFieldValue(newText, TextRange(urlStart, urlStart + 3))
         }
+
         TextFormat.NumberedList, TextFormat.Quote -> {
             val prefix = if (format == TextFormat.NumberedList) "1. " else "> "
-            val lineStart = text.lastIndexOf('\n', (start - 1).coerceAtLeast(0)).let { if (it < 0) 0 else it + 1 }
+            val lineStart = text.lastIndexOf('\n', (start - 1).coerceAtLeast(0))
+                .let { if (it < 0) 0 else it + 1 }
             val newText = text.substring(0, lineStart) + prefix + text.substring(lineStart)
             TextFieldValue(newText, TextRange(start + prefix.length))
         }
+
         else -> value
     }
 }

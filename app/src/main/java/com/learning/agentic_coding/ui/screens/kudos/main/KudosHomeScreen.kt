@@ -60,6 +60,7 @@ fun KudosHomeScreen(
     onDetailClick: (String) -> Unit,
     onComposeClick: () -> Unit = {},
     onSearchClick: () -> Unit = {},
+    onRulesClick: () -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     Box(
@@ -79,6 +80,7 @@ fun KudosHomeScreen(
                     onLanguageSelect = onLanguageSelect,
                     onSearchClick = onSearchClick,
                     onNotificationsClick = {},
+                    onInfoClick = onRulesClick,
                 )
             }
             KudosHomeBody(

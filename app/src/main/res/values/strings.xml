@@ -134,6 +134,62 @@
     <string name="sunner_search_empty">Không tìm thấy kết quả nào phù hợp</string>
     <string name="sunner_search_remove_cd">Xoá khỏi tìm kiếm gần đây</string>
 
+    <!-- Community Standards screen (MoMorph xms7csmDhD — "Tiêu chuẩn cộng đồng") -->
+    <string name="cs_topbar_title">Tiêu chuẩn chung</string>
+    <string name="cs_logo_line1" translatable="false">ROOT</string>
+    <string name="cs_logo_line2" translatable="false">FURTHER</string>
+    <string name="cs_community_title">Tiêu chuẩn cộng đồng</string>
+    <string name="cs_community_intro">Tiêu chuẩn Cộng đồng (Community Standards) được xây dựng nhằm đảm bảo một môi trường văn minh, an toàn và tích cực cho tất cả thành viên tham gia phong trào ghi nhận, cảm ơn Sun* Kudos.</string>
+    <string name="cs_community_warning">Các nội dung phát hiện có một trong những tiêu chí vi phạm bên dưới sẽ được gắn nhãn Spam và được hệ thống chủ động ẩn.</string>
+    <string name="cs_rule_1">Sử dụng từ ngữ thô tục, chửi bậy, hay có nội dung xúc phạm, bôi nhọ.</string>
+    <string name="cs_rule_2">Đề cập đến các vấn đề chính trị, tôn giáo, phân biệt giới tính.</string>
+    <string name="cs_rule_3">Chứa số liệu cụ thể (doanh thu, hợp đồng, KPI, khách hàng, mã dự án, số tài khoản...).</string>
+    <string name="cs_rule_4">Đề cập tên đối tác, khách hàng, tổ chức bên ngoài.</string>
+    <string name="cs_rule_5">Chứa thông tin cá nhân (email, số điện thoại, địa chỉ, thông tin gia đình).</string>
+    <string name="cs_rule_6">Gửi lặp lại 3+ tin nhắn có nội dung tương tự nhau trong thời gian ngắn.</string>
+    <string name="cs_rule_7">Nội dung Kudos quá ngắn (dưới 30 kí tự), không có ngữ cảnh (\"Cảm ơn nhiều\", \"Thanks nhé\", \"Good job!\").</string>
+    <string name="cs_rule_8">Gửi cho quá nhiều người/nhóm người trong thời gian ngắn (&lt;3s/lời nhắn).</string>
+    <string name="cs_rule_9">Ngôn từ spam (chỉ chứa ký tự như \"!\", \"...\", hay ký tự không có nội dung).</string>
+    <string name="cs_rule_10">Mức độ \"tim\" tăng đột biến bất thường (theo hành vi người dùng trung bình).</string>
+    <string name="cs_security_title">Tiêu chuẩn bảo mật</string>
+    <string name="cs_security_intro">Sunner cam kết bảo vệ thông tin. Mọi thành viên có trách nhiệm bảo mật nội dung chia sẻ trên hệ thống.</string>
+    <string name="cs_security_bullet1">Bảo mật Thông tin: Toàn bộ thông tin Sunner chia sẻ sẽ được bảo mật trên hệ thống.</string>
+    <string name="cs_security_bullet2">Phạm vi Chia sẻ: Toàn bộ thông tin nhân sự và dự án trong hệ thống được bảo mật. Sunner vui lòng chỉ chia sẻ trong nội bộ Sun*.</string>
+    <string name="cs_security_support">Liên hệ Hỗ trợ: Mọi thắc mắc, Sunner vui lòng liên hệ đại diện BTC SAA: Slack duong.thi.thuy.an để được hỗ trợ.</string>
+
+    <!-- Rules screen / "Thể lệ" (MoMorph zIuFaHAid4) -->
+    <string name="rules_topbar_title">Thể lệ</string>
+    <string name="rules_section_title">Thể lệ</string>
+    <string name="rules_receiver_subtitle">NGƯỜI NHẬN KUDOS: HUY HIỆU HERO CHO NHỮNG ẢNH HƯỞNG TÍCH CỰC</string>
+    <string name="rules_receiver_desc">Dựa trên số lượng đồng đội gửi trao Kudos, bạn sẽ sở hữu Huy hiệu Hero tương ứng, được hiển thị trực tiếp cạnh tên profile</string>
+    <string name="rules_hero_new" translatable="false">New Hero</string>
+    <string name="rules_hero_rising" translatable="false">Rising Hero</string>
+    <string name="rules_hero_super" translatable="false">Super Hero</string>
+    <string name="rules_hero_legend" translatable="false">Legend Hero</string>
+    <string name="rules_hero_new_count">Có 1-4 người gửi Kudos cho bạn</string>
+    <string name="rules_hero_rising_count">Có 5-9 người gửi Kudos cho bạn</string>
+    <string name="rules_hero_super_count">Có 10–20 người gửi Kudos cho bạn</string>
+    <string name="rules_hero_legend_count">Có hơn 20 người gửi Kudos cho bạn</string>
+    <string name="rules_hero_desc_early">Hành trình lan tỏa điều tốt đẹp bắt đầu – những lời cảm ơn và ghi nhận đầu tiên đã tìm đến bạn.</string>
+    <string name="rules_hero_desc_high">Bạn đã trở thành biểu tượng được tin tưởng và yêu quý, người luôn sẵn sàng hỗ trợ và được nhiều đồng đội nhớ đến.</string>
+    <string name="rules_sender_subtitle">NGƯỜI GỬI KUDOS: SƯU TẬP TRỌN BỘ 6 ICON, NHẬN NGAY PHẦN QUÀ BÍ ẨN</string>
+    <string name="rules_sender_desc">Mỗi lời Kudos bạn gửi sẽ được đăng tải trên hệ thống và nhận về những lượt ❤️ từ cộng đồng Sunner. Cứ mỗi 5 lượt ❤️, bạn sẽ được mở 1 Secret Box, với cơ hội nhận về một trong 6 icon độc quyền của SAA.</string>
+    <string name="rules_icon_revival" translatable="false">REVIVAL</string>
+    <string name="rules_icon_touch_of_light" translatable="false">TOUCH OF LIGHT</string>
+    <string name="rules_icon_stay_gold" translatable="false">STAY GOLD</string>
+    <string name="rules_icon_flow_to_horizon" translatable="false">FLOW TO HORIZON</string>
+    <string name="rules_icon_beyond_boundary" translatable="false">BEYOND THE BOUNDARY</string>
+    <string name="rules_icon_root_further" translatable="false">ROOT FUTHER</string>
+    <string name="rules_collect_conclusion">Những Sunner thu thập trọn bộ 6 icon sẽ nhận về một phần quà bí ẩn từ SAA 2025.</string>
+    <string name="rules_national_title">KUDOS QUỐC DÂN</string>
+    <string name="rules_national_desc">5 Kudos nhận về nhiều ❤️ nhất toàn Sun* sẽ chính thức trở thành Kudos Quốc Dân và được trao phần quà đặc biệt từ SAA 2025: Root Further.</string>
+    <string name="rules_btn_close">Đóng</string>
+    <string name="rules_btn_write">Viết Kudos</string>
+
+    <!-- Kudo compose → community standards link; Kudos home → rules info icon -->
+    <string name="kudo_compose_community_standards">Tiêu chuẩn cộng đồng</string>
+    <string name="kudos_home_rules_cd">Thể lệ</string>
+
     <!-- Legacy placeholder home strings — retained for future Profile/menu wiring -->
     <string name="home_welcome">Xin chào, %1$s</string>
     <string name="home_logout">Đăng xuất</string>

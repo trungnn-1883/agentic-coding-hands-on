@@ -38,6 +38,7 @@ fun HomeHeader(
     onSearchClick: () -> Unit,
     onNotificationsClick: () -> Unit,
     modifier: Modifier = Modifier,
+    onInfoClick: (() -> Unit)? = null,
 ) {
     Row(
         modifier = modifier
@@ -58,6 +59,16 @@ fun HomeHeader(
             horizontalArrangement = Arrangement.spacedBy(4.dp),
         ) {
             LanguageDropdown(selected = language, onSelect = onLanguageSelect)
+            if (onInfoClick != null) {
+                IconButton(onClick = onInfoClick, modifier = Modifier.size(40.dp)) {
+                    Icon(
+                        painter = painterResource(R.drawable.ic_info),
+                        contentDescription = stringResource(R.string.kudos_home_rules_cd),
+                        tint = Color.White,
+                        modifier = Modifier.size(24.dp),
+                    )
+                }
+            }
             IconButton(onClick = onSearchClick, modifier = Modifier.size(40.dp)) {
                 Icon(
                     painter = painterResource(R.drawable.ic_search),
