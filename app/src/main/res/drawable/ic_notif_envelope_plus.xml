@@ -1,0 +1,23 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <!-- Outlined envelope (mail) with a small reply-arrow at the bottom-right corner.
+         Matches MoMorph [iOS] Notifications kudos_received icon. -->
+    <path
+        android:strokeColor="@android:color/white"
+        android:strokeWidth="1.6"
+        android:strokeLineJoin="round"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000"
+        android:pathData="M3,6 h14 v10 h-14 z M3,6 l7,5.5 l7,-5.5" />
+    <!-- Small return / reply arrow at bottom-right (↩) -->
+    <path
+        android:strokeColor="@android:color/white"
+        android:strokeWidth="1.6"
+        android:strokeLineJoin="round"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000"
+        android:pathData="M21,14 v3 a1,1 0 0 1 -1,1 h-3 M19,16 l-2,2 l2,2" />
+</vector>

@@ -12,4 +12,5 @@ data class KudosHomeUiState(
     val data: KudosResult = KudosResult.Loading,
     val departmentFilter: String? = null,
     val hashtagFilter: String? = null,
+    val notificationUnread: Int = 0,
 )

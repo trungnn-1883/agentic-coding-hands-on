@@ -17,6 +17,7 @@ fun KudosHomeRoute(
     onSearchClick: () -> Unit = {},
     onRulesClick: () -> Unit = {},
     onOpenSecretBox: () -> Unit = {},
+    onNotificationsClick: () -> Unit = {},
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     KudosHomeScreen(
@@ -32,5 +33,6 @@ fun KudosHomeRoute(
         onSearchClick = onSearchClick,
         onRulesClick = onRulesClick,
         onOpenSecretBox = onOpenSecretBox,
+        onNotificationsClick = onNotificationsClick,
     )
 }

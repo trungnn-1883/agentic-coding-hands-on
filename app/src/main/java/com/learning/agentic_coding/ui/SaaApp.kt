@@ -33,6 +33,8 @@ import com.learning.agentic_coding.ui.screens.kudos.secretbox.OpenBoxRoute
 import com.learning.agentic_coding.ui.screens.kudos.secretbox.OpenBoxViewModel
 import com.learning.agentic_coding.ui.screens.login.LoginRoute
 import com.learning.agentic_coding.ui.screens.login.LoginViewModel
+import com.learning.agentic_coding.ui.screens.notifications.NotificationsRoute
+import com.learning.agentic_coding.ui.screens.notifications.NotificationsViewModel
 import com.learning.agentic_coding.ui.theme.MyApplicationTheme
 
 /**
@@ -53,12 +55,14 @@ fun SaaApp(services: ServiceLocator) {
                 localeRepository = services.localeRepository,
                 awardsRepository = services.awardsRepository,
                 kudosRepository = services.kudosRepository,
+                notificationsRepository = services.notificationsRepository,
             )
         }
         initializer {
             KudosHomeViewModel(
                 kudosRepository = services.kudosRepository,
                 localeRepository = services.localeRepository,
+                notificationsRepository = services.notificationsRepository,
             )
         }
         initializer {
@@ -81,6 +85,9 @@ fun SaaApp(services: ServiceLocator) {
     // Back target for KudoDetail — set when opening detail so we can return to the
     // origin screen (KudosHome or AllKudos) instead of always defaulting to KudosHome.
     var kudoDetailBack by remember { mutableStateOf<AppDestination>(AppDestination.KudosHome) }
+    // Back targets for screens that can be reached from multiple entry points.
+    var notificationsBack by remember { mutableStateOf<AppDestination>(AppDestination.Home) }
+    var communityStandardsBack by remember { mutableStateOf<AppDestination>(AppDestination.KudoCompose) }
 
     MyApplicationTheme {
         LocalizedContent(language = language) {
@@ -102,9 +109,20 @@ fun SaaApp(services: ServiceLocator) {
             }
             val openKudoCompose: () -> Unit = { destination = AppDestination.KudoCompose }
             val openSunnerSearch: () -> Unit = { destination = AppDestination.SunnerSearch }
-            val openCommunityStandards: () -> Unit = { destination = AppDestination.CommunityStandards }
+            val openCommunityStandards: () -> Unit = {
+                communityStandardsBack = AppDestination.KudoCompose
+                destination = AppDestination.CommunityStandards
+            }
             val openRules: () -> Unit = { destination = AppDestination.Rules }
             val openSecretBox: () -> Unit = { destination = AppDestination.OpenBox }
+            val openNotifications: () -> Unit = {
+                notificationsBack = destination
+                destination = AppDestination.Notifications
+            }
+            val openCommunityStandardsFromNotifications: () -> Unit = {
+                communityStandardsBack = AppDestination.Notifications
+                destination = AppDestination.CommunityStandards
+            }
             when (val dest = destination) {
                 is AppDestination.Home -> HomeRoute(
                     viewModel = homeViewModel,
@@ -113,6 +131,7 @@ fun SaaApp(services: ServiceLocator) {
                     },
                     onTabClick = tabRouter,
                     onComposeKudo = openKudoCompose,
+                    onNotificationsClick = openNotifications,
                 )
                 is AppDestination.AwardDetail -> {
                     val detailFactory = viewModelFactory {
@@ -120,6 +139,7 @@ fun SaaApp(services: ServiceLocator) {
                             AwardDetailViewModel(
                                 awardsRepository = services.awardsRepository,
                                 localeRepository = services.localeRepository,
+                                notificationsRepository = services.notificationsRepository,
                                 initialSlug = dest.slug,
                             )
                         }
@@ -131,6 +151,7 @@ fun SaaApp(services: ServiceLocator) {
                     AwardDetailRoute(
                         viewModel = detailViewModel,
                         onTabClick = tabRouter,
+                        onNotificationsClick = openNotifications,
                     )
                 }
                 is AppDestination.KudosHome -> KudosHomeRoute(
@@ -143,6 +164,7 @@ fun SaaApp(services: ServiceLocator) {
                     onSearchClick = openSunnerSearch,
                     onRulesClick = openRules,
                     onOpenSecretBox = openSecretBox,
+                    onNotificationsClick = openNotifications,
                 )
                 is AppDestination.AllKudos -> AllKudosRoute(
                     viewModel = allKudosViewModel,
@@ -211,8 +233,29 @@ fun SaaApp(services: ServiceLocator) {
                     )
                 }
                 is AppDestination.CommunityStandards -> CommunityStandardsScreen(
-                    onBack = { destination = AppDestination.KudoCompose },
+                    onBack = { destination = communityStandardsBack },
                 )
+                is AppDestination.Notifications -> {
+                    val notificationsFactory = viewModelFactory {
+                        initializer {
+                            NotificationsViewModel(
+                                repository = services.notificationsRepository,
+                                localeRepository = services.localeRepository,
+                            )
+                        }
+                    }
+                    val notificationsViewModel: NotificationsViewModel = viewModel(
+                        key = "notifications",
+                        factory = notificationsFactory,
+                    )
+                    NotificationsRoute(
+                        viewModel = notificationsViewModel,
+                        onBack = { destination = notificationsBack },
+                        onOpenKudoDetail = openKudoDetail,
+                        onOpenSecretBox = openSecretBox,
+                        onOpenCommunityStandards = openCommunityStandardsFromNotifications,
+                    )
+                }
                 is AppDestination.Rules -> RulesScreen(
                     onClose = { destination = AppDestination.KudosHome },
                     onWriteKudos = { destination = AppDestination.KudoCompose },
@@ -253,4 +296,5 @@ sealed interface AppDestination {
     data object CommunityStandards : AppDestination
     data object Rules : AppDestination
     data object OpenBox : AppDestination
+    data object Notifications : AppDestination
 }

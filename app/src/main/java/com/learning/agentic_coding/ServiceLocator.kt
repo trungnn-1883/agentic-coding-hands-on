@@ -8,6 +8,7 @@ import com.learning.agentic_coding.data.awards.AwardsRepository
 import com.learning.agentic_coding.data.kudos.KudosRepository
 import com.learning.agentic_coding.data.kudos.RecentSearchStore
 import com.learning.agentic_coding.data.locale.LocaleRepository
+import com.learning.agentic_coding.data.notifications.NotificationsRepository
 
 /**
  * Lightweight service locator wired in [SaaApplication]. Avoids pulling in Hilt for an app of
@@ -21,6 +22,7 @@ class ServiceLocator(applicationContext: Context) {
     )
     val awardsRepository: AwardsRepository = AwardsRepository(SupabaseProvider.client)
     val kudosRepository: KudosRepository = KudosRepository(SupabaseProvider.client)
+    val notificationsRepository: NotificationsRepository = NotificationsRepository(SupabaseProvider.client)
     val recentSearchStore: RecentSearchStore = RecentSearchStore(applicationContext)
 }
 

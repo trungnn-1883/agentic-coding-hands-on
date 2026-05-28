@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.learning.agentic_coding.data.awards.AwardsRepository
 import com.learning.agentic_coding.data.awards.AwardsResult
 import com.learning.agentic_coding.data.locale.LocaleRepository
+import com.learning.agentic_coding.data.notifications.NotificationsRepository
 import com.learning.agentic_coding.domain.Language
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -24,6 +25,7 @@ import kotlinx.coroutines.launch
 class AwardDetailViewModel(
     private val awardsRepository: AwardsRepository,
     private val localeRepository: LocaleRepository,
+    private val notificationsRepository: NotificationsRepository,
     initialSlug: String,
 ) : ViewModel() {
 
@@ -38,12 +40,14 @@ class AwardDetailViewModel(
         selectedSlug,
         localeRepository.languageFlow,
         dropdownOpen,
-    ) { awards, slug, language, open ->
+        notificationsRepository.unreadCount,
+    ) { awards, slug, language, open, unread ->
         AwardDetailUiState(
             awards = awards,
             selectedSlug = slug,
             language = language,
             isDropdownOpen = open,
+            notificationUnread = unread,
         )
     }.stateIn(
         scope = viewModelScope,

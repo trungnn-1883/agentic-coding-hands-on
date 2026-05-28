@@ -1,0 +1,31 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <!-- Outlined clipboard / note with checkmark inside.
+         Matches MoMorph [iOS] Notifications badge_collected icon (a checked note
+         in green, despite the spec text mentioning "badge/shield"). -->
+    <!-- Note body -->
+    <path
+        android:strokeColor="@android:color/white"
+        android:strokeWidth="1.6"
+        android:strokeLineJoin="round"
+        android:fillColor="#00000000"
+        android:pathData="M5,5 h14 v15 h-14 z" />
+    <!-- Top clip tab -->
+    <path
+        android:strokeColor="@android:color/white"
+        android:strokeWidth="1.6"
+        android:strokeLineJoin="round"
+        android:fillColor="#00000000"
+        android:pathData="M9,3.5 h6 v3 h-6 z" />
+    <!-- Checkmark inside -->
+    <path
+        android:strokeColor="@android:color/white"
+        android:strokeWidth="1.8"
+        android:strokeLineJoin="round"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000"
+        android:pathData="M8,13 l2.5,2.5 l5,-5" />
+</vector>

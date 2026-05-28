@@ -136,6 +136,21 @@
     <string name="secret_box_box_cd">シークレットボックス</string>
     <string name="secret_box_reward_cd">景品</string>
 
+    <!-- Notifications -->
+    <string name="notifications_topbar_title">通知</string>
+    <string name="notifications_mark_all_read">すべて既読にする</string>
+    <string name="notifications_empty">通知はまだありません</string>
+    <string name="notifications_error">通知を読み込めませんでした</string>
+    <string name="notifications_retry">再試行</string>
+    <string name="notifications_unread_cd">未読</string>
+    <string name="notifications_icon_cd">通知タイプ</string>
+    <string name="notifications_inline_community_standards">コミュニティ基準</string>
+    <string name="notifications_time_just_now">たった今</string>
+    <string name="notifications_time_minutes_ago">%1$d 分前</string>
+    <string name="notifications_time_hours_ago">%1$d 時間前</string>
+    <string name="notifications_time_days_ago">%1$d 日前</string>
+    <string name="notifications_time_months_ago">%1$d ヶ月前</string>
+
     <string name="home_welcome">こんにちは、%1$s さん</string>
     <string name="home_logout">ログアウト</string>
 </resources>

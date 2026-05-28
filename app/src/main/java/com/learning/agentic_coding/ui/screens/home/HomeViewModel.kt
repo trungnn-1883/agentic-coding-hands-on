@@ -7,6 +7,7 @@ import com.learning.agentic_coding.data.awards.AwardsRepository
 import com.learning.agentic_coding.data.awards.AwardsResult
 import com.learning.agentic_coding.data.kudos.KudosRepository
 import com.learning.agentic_coding.data.locale.LocaleRepository
+import com.learning.agentic_coding.data.notifications.NotificationsRepository
 import com.learning.agentic_coding.domain.Language
 import java.time.Duration
 import java.time.LocalDateTime
@@ -33,6 +34,7 @@ class HomeViewModel(
     private val localeRepository: LocaleRepository,
     private val awardsRepository: AwardsRepository,
     private val kudosRepository: KudosRepository,
+    private val notificationsRepository: NotificationsRepository,
     private val now: () -> LocalDateTime = { LocalDateTime.now(EVENT_ZONE) },
 ) : ViewModel() {
 
@@ -47,25 +49,36 @@ class HomeViewModel(
         }
     }
 
+    init {
+        // Prime the shared unread badge so headers show the right count before the
+        // Notifications screen is ever opened.
+        viewModelScope.launch { notificationsRepository.refreshUnreadCount() }
+    }
+
     val uiState: StateFlow<HomeUiState> = combine(
         authRepository.currentUser,
         localeRepository.languageFlow,
         awardsFlow,
         countdownFlow,
-    ) { user, language, awards, countdown ->
+        notificationsRepository.unreadCount,
+    ) { user, language, awards, countdown, unread ->
         HomeUiState(
             user = user,
             language = language,
             awards = awards,
             countdown = countdown,
             isKudosAvailable = kudosRepository.isKudosAvailable,
-            notificationUnread = HARDCODED_UNREAD,
+            notificationUnread = unread,
         )
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000L),
         initialValue = HomeUiState(isKudosAvailable = kudosRepository.isKudosAvailable),
     )
+
+    fun refreshNotifications() {
+        viewModelScope.launch { notificationsRepository.refreshUnreadCount() }
+    }
 
     fun onLanguageSelect(language: Language) {
         viewModelScope.launch { localeRepository.setLanguage(language) }
@@ -81,7 +94,6 @@ class HomeViewModel(
         private val EVENT_TARGET: LocalDateTime = LocalDateTime.of(2026, 6, 26, 0, 0)
         private val EVENT_ZONE: ZoneId = ZoneId.of("Asia/Saigon")
         private const val COUNTDOWN_TICK_MS = 60_000L
-        private const val HARDCODED_UNREAD = 1
 
         internal fun computeCountdown(now: LocalDateTime): CountdownState {
             val remaining = Duration.between(now, EVENT_TARGET)
