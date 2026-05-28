@@ -15,6 +15,7 @@ fun KudosHomeRoute(
     onTabClick: (HomeTab) -> Unit,
     onComposeClick: () -> Unit = {},
     onSearchClick: () -> Unit = {},
+    onRulesClick: () -> Unit = {},
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     KudosHomeScreen(
@@ -28,5 +29,6 @@ fun KudosHomeRoute(
         onDetailClick = onDetailClick,
         onComposeClick = onComposeClick,
         onSearchClick = onSearchClick,
+        onRulesClick = onRulesClick,
     )
 }
