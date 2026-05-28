@@ -29,6 +29,8 @@ import com.learning.agentic_coding.ui.screens.kudos.main.KudosHomeRoute
 import com.learning.agentic_coding.ui.screens.kudos.main.KudosHomeViewModel
 import com.learning.agentic_coding.ui.screens.kudos.search.SunnerSearchRoute
 import com.learning.agentic_coding.ui.screens.kudos.search.SunnerSearchViewModel
+import com.learning.agentic_coding.ui.screens.kudos.secretbox.OpenBoxRoute
+import com.learning.agentic_coding.ui.screens.kudos.secretbox.OpenBoxViewModel
 import com.learning.agentic_coding.ui.screens.login.LoginRoute
 import com.learning.agentic_coding.ui.screens.login.LoginViewModel
 import com.learning.agentic_coding.ui.theme.MyApplicationTheme
@@ -102,6 +104,7 @@ fun SaaApp(services: ServiceLocator) {
             val openSunnerSearch: () -> Unit = { destination = AppDestination.SunnerSearch }
             val openCommunityStandards: () -> Unit = { destination = AppDestination.CommunityStandards }
             val openRules: () -> Unit = { destination = AppDestination.Rules }
+            val openSecretBox: () -> Unit = { destination = AppDestination.OpenBox }
             when (val dest = destination) {
                 is AppDestination.Home -> HomeRoute(
                     viewModel = homeViewModel,
@@ -139,6 +142,7 @@ fun SaaApp(services: ServiceLocator) {
                     onComposeClick = openKudoCompose,
                     onSearchClick = openSunnerSearch,
                     onRulesClick = openRules,
+                    onOpenSecretBox = openSecretBox,
                 )
                 is AppDestination.AllKudos -> AllKudosRoute(
                     viewModel = allKudosViewModel,
@@ -213,6 +217,23 @@ fun SaaApp(services: ServiceLocator) {
                     onClose = { destination = AppDestination.KudosHome },
                     onWriteKudos = { destination = AppDestination.KudoCompose },
                 )
+                is AppDestination.OpenBox -> {
+                    val openBoxFactory = viewModelFactory {
+                        initializer { OpenBoxViewModel(kudosRepository = services.kudosRepository) }
+                    }
+                    val openBoxViewModel: OpenBoxViewModel = viewModel(
+                        key = "open-box",
+                        factory = openBoxFactory,
+                    )
+                    OpenBoxRoute(
+                        viewModel = openBoxViewModel,
+                        onBack = {
+                            // Stats may have changed (counter, opened total) — refetch.
+                            kudosHomeViewModel.refresh()
+                            destination = AppDestination.KudosHome
+                        },
+                    )
+                }
             }
         }
     }
@@ -231,4 +252,5 @@ sealed interface AppDestination {
     data object SunnerSearch : AppDestination
     data object CommunityStandards : AppDestination
     data object Rules : AppDestination
+    data object OpenBox : AppDestination
 }

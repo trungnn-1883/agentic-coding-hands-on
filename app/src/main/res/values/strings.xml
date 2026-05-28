@@ -190,6 +190,16 @@
     <string name="kudo_compose_community_standards">Tiêu chuẩn cộng đồng</string>
     <string name="kudos_home_rules_cd">Thể lệ</string>
 
+    <!-- Open Secret Box screen (MoMorph kQk65hSYF2 + Standby variants) -->
+    <string name="secret_box_top_title">Secret Box</string>
+    <string name="secret_box_title_explore">KHÁM PHÁ SECRET BOX CỦA BẠN</string>
+    <string name="secret_box_subtitle_click">Click vào box để mở</string>
+    <string name="secret_box_subtitle_empty">Bạn đã mở hết Secret Box</string>
+    <string name="secret_box_reveal_subtitle">Chúc mừng bạn đã nhận được phần quà từ BTC SAA 2025</string>
+    <string name="secret_box_unopened_label">Secret box chưa mở</string>
+    <string name="secret_box_box_cd">Hộp Secret Box</string>
+    <string name="secret_box_reward_cd">Phần quà</string>
+
     <!-- Legacy placeholder home strings — retained for future Profile/menu wiring -->
     <string name="home_welcome">Xin chào, %1$s</string>
     <string name="home_logout">Đăng xuất</string>

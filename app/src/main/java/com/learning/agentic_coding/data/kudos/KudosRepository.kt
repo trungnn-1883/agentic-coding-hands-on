@@ -2,6 +2,8 @@ package com.learning.agentic_coding.data.kudos
 
 import com.learning.agentic_coding.domain.KudosHashtag
 import com.learning.agentic_coding.domain.KudosRecipient
+import com.learning.agentic_coding.domain.SecretBoxOpenResult
+import com.learning.agentic_coding.domain.SecretBoxReward
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.postgrest.from
 import io.github.jan.supabase.postgrest.query.Columns
@@ -197,6 +199,58 @@ class KudosRepository(private val supabase: SupabaseClient? = null) {
                 client.from("kudo_images").insert(imageRows)
             }
             newId
+        }
+    }
+
+    /** Secret Box catalog (ordered for stable random / debug). */
+    suspend fun listSecretBoxRewards(): List<SecretBoxReward> {
+        val client = supabase ?: return emptyList()
+        return runCatching {
+            client.from("secret_box_rewards")
+                .select()
+                .decodeList<SecretBoxRewardRow>()
+                .sortedBy { it.displayOrder }
+                .map { it.toDomain() }
+        }.getOrDefault(emptyList())
+    }
+
+    /**
+     * Opens one Secret Box: picks a random reward, records the open in `secret_box_opens`,
+     * then decrements `secret_box_unopened` (+ increments `secret_box_opened`) on the
+     * single demo stats row. Returns the chosen reward + remaining count.
+     *
+     * Returns `reward = null` when the unopened pool is already empty.
+     */
+    suspend fun openSecretBox(): Result<SecretBoxOpenResult> {
+        val client = supabase ?: return Result.failure(IllegalStateException("Supabase not configured"))
+        return runCatching {
+            val statsRow = client.from("kudos_user_stats")
+                .select()
+                .decodeList<KudosUserStatsRow>()
+                .firstOrNull() ?: error("Stats row missing")
+            val statsId = statsRow.id ?: error("Stats id missing")
+
+            if (statsRow.secretBoxUnopened <= 0) {
+                return@runCatching SecretBoxOpenResult(reward = null, unopenedRemaining = 0)
+            }
+
+            val rewards = listSecretBoxRewards()
+            if (rewards.isEmpty()) error("Reward catalog empty")
+            val picked = rewards.random()
+
+            client.from("secret_box_opens")
+                .insert(SecretBoxOpenInsert(rewardId = picked.id))
+
+            val nextUnopened = (statsRow.secretBoxUnopened - 1).coerceAtLeast(0)
+            val nextOpened = statsRow.secretBoxOpened + 1
+            client.from("kudos_user_stats").update(
+                SecretBoxStatsPatch(
+                    secretBoxOpened = nextOpened,
+                    secretBoxUnopened = nextUnopened,
+                ),
+            ) { filter { eq("id", statsId) } }
+
+            SecretBoxOpenResult(reward = picked, unopenedRemaining = nextUnopened)
         }
     }
 }

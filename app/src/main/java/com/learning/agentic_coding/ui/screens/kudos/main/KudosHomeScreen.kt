@@ -61,6 +61,7 @@ fun KudosHomeScreen(
     onComposeClick: () -> Unit = {},
     onSearchClick: () -> Unit = {},
     onRulesClick: () -> Unit = {},
+    onOpenSecretBox: () -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     Box(
@@ -91,6 +92,7 @@ fun KudosHomeScreen(
                 onRetry = onRetry,
                 onDetailClick = onDetailClick,
                 onComposeClick = onComposeClick,
+                onOpenSecretBox = onOpenSecretBox,
                 modifier = Modifier.weight(1f),
             )
             HomeBottomNav(activeTab = HomeTab.KUDOS, onTabClick = onTabClick)
@@ -107,6 +109,7 @@ private fun KudosHomeBody(
     onRetry: () -> Unit,
     onDetailClick: (String) -> Unit,
     onComposeClick: () -> Unit,
+    onOpenSecretBox: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     when (val data = state.data) {
@@ -120,6 +123,7 @@ private fun KudosHomeBody(
             onViewAllKudos = onViewAllKudos,
             onDetailClick = onDetailClick,
             onComposeClick = onComposeClick,
+            onOpenSecretBox = onOpenSecretBox,
             modifier = modifier,
         )
     }
@@ -135,6 +139,7 @@ private fun KudosHomeContent(
     onViewAllKudos: () -> Unit,
     onDetailClick: (String) -> Unit,
     onComposeClick: () -> Unit,
+    onOpenSecretBox: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val highlightPosts = data.posts.filter { it.isHighlight }
@@ -174,7 +179,7 @@ private fun KudosHomeContent(
         item { KudosSectionHeading(title = stringResource(R.string.kudos_spotlight_title)) }
         item { KudosSpotlightBoard() }
         item { KudosSectionHeading(title = stringResource(R.string.kudos_all_title)) }
-        item { KudosStatsCard(stats = data.stats, onOpenSecretBox = {}) }
+        item { KudosStatsCard(stats = data.stats, onOpenSecretBox = onOpenSecretBox) }
         item { KudosGiftPanel(recipients = data.giftRecipients) }
         items(recentPosts, key = { it.id }) { post ->
             Box(modifier = Modifier.padding(horizontal = 20.dp)) {

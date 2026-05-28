@@ -127,6 +127,15 @@
     <string name="sunner_search_empty">一致する結果が見つかりません</string>
     <string name="sunner_search_remove_cd">最近の検索から削除</string>
 
+    <string name="secret_box_top_title">Secret Box</string>
+    <string name="secret_box_title_explore">シークレットボックスを開けよう</string>
+    <string name="secret_box_subtitle_click">ボックスをタップして開く</string>
+    <string name="secret_box_subtitle_empty">すべて開封済みです</string>
+    <string name="secret_box_reveal_subtitle">SAA 2025 からのプレゼントを受け取りました</string>
+    <string name="secret_box_unopened_label">未開封ボックス</string>
+    <string name="secret_box_box_cd">シークレットボックス</string>
+    <string name="secret_box_reward_cd">景品</string>
+
     <string name="home_welcome">こんにちは、%1$s さん</string>
     <string name="home_logout">ログアウト</string>
 </resources>

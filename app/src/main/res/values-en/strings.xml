@@ -127,6 +127,15 @@
     <string name="sunner_search_empty">No matching results found</string>
     <string name="sunner_search_remove_cd">Remove from recent searches</string>
 
+    <string name="secret_box_top_title">Secret Box</string>
+    <string name="secret_box_title_explore">DISCOVER YOUR SECRET BOX</string>
+    <string name="secret_box_subtitle_click">Tap the box to open</string>
+    <string name="secret_box_subtitle_empty">All Secret Boxes opened</string>
+    <string name="secret_box_reveal_subtitle">Congrats! You received a gift from SAA 2025</string>
+    <string name="secret_box_unopened_label">Unopened Secret Box</string>
+    <string name="secret_box_box_cd">Secret Box</string>
+    <string name="secret_box_reward_cd">Reward</string>
+
     <string name="home_welcome">Welcome, %1$s</string>
     <string name="home_logout">Log out</string>
 </resources>
