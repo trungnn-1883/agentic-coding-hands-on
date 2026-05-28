@@ -53,4 +53,9 @@ class KudosHomeViewModel(
     fun retry() {
         if (uiState.value.data is KudosResult.Error) refreshTicker.value++
     }
+
+    /** Unconditional refetch — used when stats change off-screen (e.g. after Open Secret Box). */
+    fun refresh() {
+        refreshTicker.value++
+    }
 }

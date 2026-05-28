@@ -7,6 +7,7 @@ import com.learning.agentic_coding.domain.KudosParty
 import com.learning.agentic_coding.domain.KudosPost
 import com.learning.agentic_coding.domain.KudosRecipient
 import com.learning.agentic_coding.domain.KudosUserStats
+import com.learning.agentic_coding.domain.SecretBoxReward
 import java.time.OffsetDateTime
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
@@ -121,6 +122,7 @@ internal data class KudoImageRow(
 
 @Serializable
 internal data class KudosUserStatsRow(
+    val id: String? = null,
     @SerialName("kudos_received") val kudosReceived: Int = 0,
     @SerialName("kudos_sent") val kudosSent: Int = 0,
     @SerialName("hearts_received") val heartsReceived: Int = 0,
@@ -146,6 +148,33 @@ internal fun parsePostgrestTimestamp(raw: String): OffsetDateTime =
     runCatching { OffsetDateTime.parse(raw) }
         .recoverCatching { OffsetDateTime.parse(raw, POSTGREST_FALLBACK_FORMATTER) }
         .getOrElse { OffsetDateTime.now(ZoneOffset.UTC) }
+
+@Serializable
+internal data class SecretBoxRewardRow(
+    val id: String,
+    val name: String,
+    @SerialName("image_url") val imageUrl: String,
+    @SerialName("display_order") val displayOrder: Int = 0,
+) {
+    fun toDomain(): SecretBoxReward = SecretBoxReward(
+        id = id,
+        name = name,
+        imageRes = imageUrl,
+        displayOrder = displayOrder,
+    )
+}
+
+@Serializable
+internal data class SecretBoxOpenInsert(
+    @SerialName("reward_id") val rewardId: String,
+)
+
+/** Counter patch for `kudos_user_stats`. Both columns sent to keep payload explicit. */
+@Serializable
+internal data class SecretBoxStatsPatch(
+    @SerialName("secret_box_opened") val secretBoxOpened: Int,
+    @SerialName("secret_box_unopened") val secretBoxUnopened: Int,
+)
 
 @Serializable
 internal data class KudosGiftRecipientRow(
