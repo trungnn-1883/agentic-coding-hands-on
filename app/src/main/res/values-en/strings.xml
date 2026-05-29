@@ -151,6 +151,21 @@
     <string name="notifications_time_days_ago">%1$d d ago</string>
     <string name="notifications_time_months_ago">%1$d mo ago</string>
 
+    <!-- Error screens -->
+    <string name="error_back_cd">Back</string>
+    <string name="error_go_home">Go back to Home</string>
+    <string name="error_404_title">NOT FOUND</string>
+    <string name="error_404_description">The resource you\'re looking for doesn\'t exist or has been removed.</string>
+    <string name="error_404_illustration_cd">404 error illustration</string>
+    <string name="error_403_title">Access Denied</string>
+    <string name="error_403_description">You don\'t have permission to access this resource.</string>
+    <string name="error_403_illustration_cd">Access denied illustration</string>
+
+    <!-- Debug menu -->
+    <string name="debug_menu_title">Debug Menu</string>
+    <string name="debug_menu_open_not_found">Open Not Found screen</string>
+    <string name="debug_menu_open_access_denied">Open Access Denied screen</string>
+
     <string name="home_welcome">Welcome, %1$s</string>
     <string name="home_logout">Log out</string>
 </resources>

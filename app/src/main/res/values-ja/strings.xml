@@ -151,6 +151,21 @@
     <string name="notifications_time_days_ago">%1$d 日前</string>
     <string name="notifications_time_months_ago">%1$d ヶ月前</string>
 
+    <!-- Error screens -->
+    <string name="error_back_cd">戻る</string>
+    <string name="error_go_home">ホームに戻る</string>
+    <string name="error_404_title">見つかりません</string>
+    <string name="error_404_description">お探しのリソースは存在しないか、削除されました。</string>
+    <string name="error_404_illustration_cd">404 エラーのイラスト</string>
+    <string name="error_403_title">アクセス拒否</string>
+    <string name="error_403_description">このリソースにアクセスする権限がありません。</string>
+    <string name="error_403_illustration_cd">アクセス拒否のイラスト</string>
+
+    <!-- Debug menu -->
+    <string name="debug_menu_title">デバッグメニュー</string>
+    <string name="debug_menu_open_not_found">Not Found 画面を開く</string>
+    <string name="debug_menu_open_access_denied">Access Denied 画面を開く</string>
+
     <string name="home_welcome">こんにちは、%1$s さん</string>
     <string name="home_logout">ログアウト</string>
 </resources>

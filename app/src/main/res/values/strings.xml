@@ -215,6 +215,21 @@
     <string name="notifications_time_days_ago">%1$d ngày trước</string>
     <string name="notifications_time_months_ago">%1$d tháng trước</string>
 
+    <!-- Error screens (MoMorph sn2mdavs1a [iOS] Not Found, k-7zJk2B7s [iOS] Access denied) -->
+    <string name="error_back_cd">Quay lại</string>
+    <string name="error_go_home">Quay về trang chủ</string>
+    <string name="error_404_title">KHÔNG TÌM THẤY</string>
+    <string name="error_404_description">Tài nguyên bạn đang tìm không tồn tại hoặc đã bị xoá.</string>
+    <string name="error_404_illustration_cd">Hình minh hoạ lỗi 404</string>
+    <string name="error_403_title">TỪ CHỐI TRUY CẬP</string>
+    <string name="error_403_description">Bạn không có quyền truy cập tài nguyên này.</string>
+    <string name="error_403_illustration_cd">Hình minh hoạ lỗi truy cập</string>
+
+    <!-- Debug menu (mock entry to error screens, opened via Profile tab) -->
+    <string name="debug_menu_title">Debug Menu</string>
+    <string name="debug_menu_open_not_found">Mở màn hình Not Found</string>
+    <string name="debug_menu_open_access_denied">Mở màn hình Access Denied</string>
+
     <!-- Legacy placeholder home strings — retained for future Profile/menu wiring -->
     <string name="home_welcome">Xin chào, %1$s</string>
     <string name="home_logout">Đăng xuất</string>
