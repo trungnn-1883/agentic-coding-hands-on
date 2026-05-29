@@ -8,7 +8,6 @@ import com.learning.agentic_coding.data.auth.AuthRepositoryException
 import com.learning.agentic_coding.data.locale.LocaleRepository
 import com.learning.agentic_coding.domain.AuthError
 import com.learning.agentic_coding.domain.Language
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -50,10 +49,8 @@ class LoginViewModel(
         viewModelScope.launch {
             try {
                 if (mockSignIn) {
-                    // Mock mode: simulate 2-second delay then succeed without calling Google Sign-In
-                    delay(2000)
-                    // Trigger mock authentication through the auth repository
-                    authRepository.mockSignIn()
+                    // Mock mode: show real Google account chooser but skip Supabase sign-in
+                    authRepository.signInWithGoogleMock(context)
                 } else {
                     authRepository.signInWithGoogle(context)
                 }

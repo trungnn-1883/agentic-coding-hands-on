@@ -69,6 +69,30 @@ class AuthRepository(
         }
     }
 
+    /**
+     * Shows the real Google account chooser dialog but mocks the Supabase sign-in.
+     * The selected account's email is used to populate the mock user.
+     * If the user cancels the dialog, [AuthRepositoryException] with [AuthError.Cancelled] is thrown.
+     */
+    suspend fun signInWithGoogleMock(context: Context) {
+        // Attempt to show the real Google account chooser. Any failure (cancellation,
+        // SHA-1 mismatch, no OAuth client, etc.) is intentionally swallowed — we always
+        // proceed with fake data in mock mode.
+        val email = try {
+            googleSignInHelper.getGoogleIdToken(context).email
+        } catch (e: Exception) {
+            Log.w(TAG, "Google chooser failed in mock mode — using default fake email: ${e.message}")
+            null
+        }
+
+        _mockUser.value = AuthUser(
+            id = "mock-user-id-12345",
+            email = email ?: "mock@example.com",
+            displayName = email?.substringBefore("@") ?: "Mock User",
+        )
+        Log.i(TAG, "Mock sign-in successful — user: ${email ?: "mock@example.com"}")
+    }
+
     suspend fun signOut() {
         runCatching { supabase.auth.signOut() }
         _mockUser.value = null
