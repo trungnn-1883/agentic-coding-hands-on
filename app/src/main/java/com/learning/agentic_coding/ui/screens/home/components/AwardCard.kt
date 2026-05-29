@@ -54,7 +54,7 @@ fun AwardCard(
         AwardThumbnail(drawableName = award.imageDrawable)
         Text(
             text = award.name,
-            color = colorResource(R.color.saa_text_primary),
+            color = colorResource(R.color.saa_award_label_gold),
             fontSize = 16.sp,
             lineHeight = 20.sp,
             fontWeight = FontWeight.SemiBold,
@@ -77,14 +77,14 @@ fun AwardCard(
         ) {
             Text(
                 text = stringResource(R.string.home_award_details),
-                color = colorResource(R.color.saa_button_yellow),
+                color = colorResource(R.color.saa_text_primary),
                 fontSize = 13.sp,
                 fontWeight = FontWeight.SemiBold,
             )
             Icon(
                 painter = painterResource(R.drawable.ic_arrow_external),
                 contentDescription = null,
-                tint = colorResource(R.color.saa_button_yellow),
+                tint = colorResource(R.color.saa_text_primary),
                 modifier = Modifier.size(14.dp),
             )
         }

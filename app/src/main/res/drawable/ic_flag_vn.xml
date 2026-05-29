@@ -3,11 +3,12 @@
     android:height="24dp"
     android:viewportWidth="24"
     android:viewportHeight="24">
-    <!-- Vietnam flag: red field with central yellow 5-pointed star -->
+    <!-- Vietnam flag: full-bleed red field + yellow 5-point star, designed to
+         render correctly when parent clips to a circle. -->
     <path
         android:fillColor="#DA251D"
-        android:pathData="M0,4 L24,4 L24,20 L0,20 Z" />
+        android:pathData="M0,0 L24,0 L24,24 L0,24 Z" />
     <path
         android:fillColor="#FFFF00"
-        android:pathData="M12,5.5 L13.76,10.93 L19.47,10.93 L14.85,14.28 L16.62,19.71 L12,16.36 L7.38,19.71 L9.15,14.28 L4.53,10.93 L10.24,10.93 Z" />
+        android:pathData="M12,4 L13.88,9.41 L19.61,9.53 L15.04,12.99 L16.7,18.47 L12,15.2 L7.3,18.47 L8.96,12.99 L4.39,9.53 L10.12,9.41 Z" />
 </vector>

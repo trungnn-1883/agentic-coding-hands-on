@@ -58,3 +58,21 @@ fun AwardKvBanner(modifier: Modifier = Modifier) {
         }
     }
 }
+
+@Composable
+fun KudosHero(modifier: Modifier = Modifier) {
+    Column(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(horizontal = 20.dp),
+        verticalArrangement = Arrangement.spacedBy(14.dp),
+    ) {
+        Text(
+            text = stringResource(R.string.kudos_home_eyebrow),
+            color = colorResource(R.color.saa_award_label_gold),
+            fontSize = 13.sp,
+            fontWeight = FontWeight.Medium,
+        )
+        KudosWordmark()
+    }
+}

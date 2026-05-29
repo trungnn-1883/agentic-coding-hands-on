@@ -279,22 +279,21 @@ private fun RewardPodium(reward: SecretBoxReward) {
 
 @Composable
 private fun UnopenedCounter(count: Int) {
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(
-                Brush.horizontalGradient(
-                    colors = listOf(
-                        Color.Transparent,
-                        colorResource(R.color.saa_award_label_gold).copy(alpha = 0.4f),
-                        Color.Transparent,
-                    ),
-                ),
-            )
-            .padding(vertical = 12.dp),
-        contentAlignment = Alignment.Center,
+    // Figma mms_3.2_Số box chưa mở (screen KUmv414uC9). Centered text row with a
+    // 1dp #2E3940 hairline divider above it (Rectangle 18) — no row fill. The
+    // count is gold to echo the headline.
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(1.dp)
+                .background(colorResource(R.color.saa_secret_box_divider)),
+        )
         Row(
+            modifier = Modifier.padding(vertical = 12.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(8.dp),
         ) {
@@ -305,7 +304,7 @@ private fun UnopenedCounter(count: Int) {
             )
             Text(
                 text = "%02d".format(count),
-                color = colorResource(R.color.saa_text_primary),
+                color = colorResource(R.color.saa_award_label_gold),
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
             )

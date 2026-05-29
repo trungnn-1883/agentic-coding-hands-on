@@ -18,6 +18,9 @@ fun HomeRoute(
     onTabClick: (HomeTab) -> Unit,
     onComposeKudo: () -> Unit = {},
     onNotificationsClick: () -> Unit = {},
+    onAboutAwardClick: () -> Unit = {},
+    onAboutKudosClick: () -> Unit = {},
+    onKudosDetailsClick: () -> Unit = {},
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     HomeScreen(
@@ -28,5 +31,8 @@ fun HomeRoute(
         onTabClick = onTabClick,
         onComposeKudo = onComposeKudo,
         onNotificationsClick = onNotificationsClick,
+        onAboutAwardClick = onAboutAwardClick,
+        onAboutKudosClick = onAboutKudosClick,
+        onKudosDetailsClick = onKudosDetailsClick,
     )
 }

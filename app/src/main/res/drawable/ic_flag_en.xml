@@ -1,38 +1,40 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="24dp"
     android:height="24dp"
-    android:viewportWidth="60"
-    android:viewportHeight="30">
-    <!-- Union Jack (simplified) - blue field, white + red crosses -->
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <!-- Union Jack (simplified) on 24x24 viewport — full bleed so parent
+         CircleShape clip yields a clean round flag. -->
+    <!-- Blue field -->
     <path
         android:fillColor="#012169"
-        android:pathData="M0,0 L60,0 L60,30 L0,30 Z" />
-    <!-- White diagonals -->
+        android:pathData="M0,0 L24,0 L24,24 L0,24 Z" />
+    <!-- White diagonals (St. Andrew) -->
     <path
         android:fillColor="#FFFFFF"
-        android:pathData="M0,0 L60,30 L60,27 L4,0 Z" />
+        android:pathData="M0,0 L24,24 L24,21 L3,0 Z" />
     <path
         android:fillColor="#FFFFFF"
-        android:pathData="M56,0 L60,0 L60,3 L4,30 L0,30 L0,27 Z" />
+        android:pathData="M21,0 L24,0 L24,3 L3,24 L0,24 L0,21 Z" />
     <!-- Red diagonals (St. Patrick) -->
     <path
         android:fillColor="#C8102E"
-        android:pathData="M0,0 L60,30 L60,28 L2,0 Z" />
+        android:pathData="M0,0 L24,24 L24,22.5 L1.5,0 Z" />
     <path
         android:fillColor="#C8102E"
-        android:pathData="M58,0 L60,0 L60,2 L2,30 L0,30 L0,28 Z" />
-    <!-- White cross -->
+        android:pathData="M22.5,0 L24,0 L24,1.5 L1.5,24 L0,24 L0,22.5 Z" />
+    <!-- White cross (St. George frame) -->
     <path
         android:fillColor="#FFFFFF"
-        android:pathData="M25,0 L35,0 L35,30 L25,30 Z" />
+        android:pathData="M9.5,0 L14.5,0 L14.5,24 L9.5,24 Z" />
     <path
         android:fillColor="#FFFFFF"
-        android:pathData="M0,10 L60,10 L60,20 L0,20 Z" />
+        android:pathData="M0,9.5 L24,9.5 L24,14.5 L0,14.5 Z" />
     <!-- Red cross (St. George) -->
     <path
         android:fillColor="#C8102E"
-        android:pathData="M27,0 L33,0 L33,30 L27,30 Z" />
+        android:pathData="M10.5,0 L13.5,0 L13.5,24 L10.5,24 Z" />
     <path
         android:fillColor="#C8102E"
-        android:pathData="M0,12 L60,12 L60,18 L0,18 Z" />
+        android:pathData="M0,10.5 L24,10.5 L24,13.5 L0,13.5 Z" />
 </vector>

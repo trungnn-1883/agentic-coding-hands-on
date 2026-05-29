@@ -144,6 +144,11 @@ fun SaaApp(services: ServiceLocator) {
                     onTabClick = tabRouter,
                     onComposeKudo = openKudoCompose,
                     onNotificationsClick = openNotifications,
+                    onAboutAwardClick = {
+                        destination = AppDestination.AwardDetail(DEFAULT_AWARD_SLUG)
+                    },
+                    onAboutKudosClick = { destination = AppDestination.KudosHome },
+                    onKudosDetailsClick = { destination = AppDestination.KudosHome },
                 )
                 is AppDestination.AwardDetail -> {
                     val detailFactory = viewModelFactory {
