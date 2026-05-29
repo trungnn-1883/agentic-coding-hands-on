@@ -1,6 +1,7 @@
 package com.learning.agentic_coding.ui.screens.kudos.main.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -9,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -77,16 +77,23 @@ private fun KudosWordmark() {
 
 @Composable
 private fun ComposePromptCard(onClick: () -> Unit) {
+    // Figma mms_A.1: 335×40 pill, 1dp olive border (#998C5F) over yellow-tint 10% fill,
+    // 4dp radius. Pencil icon + prompt text left-aligned, 8dp gap, 10dp inner padding.
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(8.dp))
-            .background(colorResource(R.color.saa_kudos_dropdown_bg))
+            .height(40.dp)
+            .clip(RoundedCornerShape(4.dp))
+            .background(colorResource(R.color.saa_kudos_yellow_tint_10))
+            .border(
+                width = 1.dp,
+                color = colorResource(R.color.saa_kudos_border_olive),
+                shape = RoundedCornerShape(4.dp),
+            )
             .clickable(onClick = onClick)
-            .padding(horizontal = 14.dp, vertical = 12.dp)
-            .height(40.dp),
+            .padding(horizontal = 10.dp),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(10.dp),
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         Icon(
             painter = painterResource(R.drawable.ic_pen),

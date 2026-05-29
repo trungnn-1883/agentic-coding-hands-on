@@ -2,6 +2,7 @@ package com.learning.agentic_coding.ui.screens.home.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -74,6 +75,7 @@ fun HomeHeroSection(
                 HeroCta(
                     label = stringResource(R.string.home_about_kudos),
                     onClick = onAboutKudosClick,
+                    outlined = true,
                 )
             }
         }
@@ -81,15 +83,25 @@ fun HomeHeroSection(
 }
 
 @Composable
-private fun HeroCta(label: String, onClick: () -> Unit) {
+private fun HeroCta(label: String, onClick: () -> Unit, outlined: Boolean = false) {
+    // ABOUT AWARD: solid yellow. ABOUT KUDOS: 10% yellow tint + gold border (spec mms_2.3).
+    val containerColor = colorResource(
+        if (outlined) R.color.saa_button_outline_tint else R.color.saa_button_yellow,
+    )
+    val contentColor = colorResource(
+        if (outlined) R.color.saa_text_primary else R.color.saa_text_on_button,
+    )
     Button(
         onClick = onClick,
         shape = RoundedCornerShape(4.dp),
         contentPadding = PaddingValues(horizontal = 14.dp, vertical = 6.dp),
         colors = ButtonDefaults.buttonColors(
-            containerColor = colorResource(R.color.saa_button_yellow),
-            contentColor = colorResource(R.color.saa_text_on_button),
+            containerColor = containerColor,
+            contentColor = contentColor,
         ),
+        border = if (outlined) {
+            BorderStroke(1.dp, colorResource(R.color.saa_button_outline_border))
+        } else null,
     ) {
         Text(
             text = label,
@@ -100,7 +112,7 @@ private fun HeroCta(label: String, onClick: () -> Unit) {
         Icon(
             painter = painterResource(R.drawable.ic_arrow_external),
             contentDescription = null,
-            tint = colorResource(R.color.saa_text_on_button),
+            tint = contentColor,
             modifier = Modifier.size(16.dp),
         )
     }

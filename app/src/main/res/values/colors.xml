@@ -11,6 +11,8 @@
     <!-- SAA brand palette (extracted from MoMorph design) -->
     <color name="saa_bg_dark">#FF00101A</color>
     <color name="saa_button_yellow">#FFFFE49A</color>
+    <color name="saa_button_outline_tint">#1AFFEA9E</color>
+    <color name="saa_button_outline_border">#FF998C5F</color>
     <color name="saa_text_on_button">#FF1A1A1A</color>
     <color name="saa_text_primary">#FFFFFFFF</color>
     <color name="saa_text_secondary">#CCFFFFFF</color>
@@ -58,6 +60,11 @@
     <color name="saa_kudos_idol_title">#FF1A1A1A</color>
     <color name="saa_kudos_white_dim">#B3FFFFFF</color>
     <color name="saa_kudos_content_bg_40">#66FFEA9E</color>
+    <!-- Kudos filter / compose prompt — yellow tint 10% over olive border, per Figma fO0Kt19sZZ -->
+    <color name="saa_kudos_border_olive">#FF998C5F</color>
+    <color name="saa_kudos_yellow_tint_10">#1AFFEA9E</color>
+    <!-- Hairline divider above the "Secret box chưa mở" row (Figma Rectangle 18) -->
+    <color name="saa_secret_box_divider">#FF2E3940</color>
 
     <!-- Notifications screen — per-type icon tints (eyedropped from MoMorph _b68CBWKl5) -->
     <color name="saa_notif_envelope">#FF5BB8E0</color>

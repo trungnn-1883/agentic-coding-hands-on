@@ -36,6 +36,7 @@ import com.learning.agentic_coding.domain.Language
 import com.learning.agentic_coding.ui.screens.award.components.AwardHighlightBlock
 import com.learning.agentic_coding.ui.screens.award.components.AwardInfoBlock
 import com.learning.agentic_coding.ui.screens.award.components.AwardKvBanner
+import com.learning.agentic_coding.ui.screens.award.components.KudosHero
 import com.learning.agentic_coding.ui.screens.home.components.HomeBottomNav
 import com.learning.agentic_coding.ui.screens.home.components.HomeHeader
 import com.learning.agentic_coding.ui.screens.home.components.HomeTab
@@ -68,7 +69,7 @@ fun AwardDetailScreen(
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(colorResource(R.color.saa_bg_dark))
+//                    .background(colorResource(R.color.saa_bg_dark))
                     .statusBarsPadding(),
             ) {
                 HomeHeader(
@@ -106,8 +107,11 @@ private fun ScrollingHero(
     onAwardSelect: (Award) -> Unit,
 ) {
     Box(modifier = Modifier.fillMaxWidth()) {
+        // Colorful Sun* smoke keyvisual sitting behind the "Hệ thống giải thưởng"
+        // header + dropdown + podium image — per Figma Award detail frames. The
+        // dim gradient below keeps body text legible without washing out the art.
         Image(
-            painter = painterResource(R.drawable.bg_keyvisual),
+            painter = painterResource(R.drawable.saa_keyvisual_bg),
             contentDescription = null,
             modifier = Modifier.matchParentSize(),
             contentScale = ContentScale.Crop,
@@ -119,7 +123,9 @@ private fun ScrollingHero(
                 .background(heroDimGradient()),
         )
         Column(modifier = Modifier.fillMaxWidth()) {
-            AwardKvBanner()
+            Box(modifier = Modifier.height(40.dp))
+            KudosHero()
+            Box(modifier = Modifier.height(40.dp))
             AwardHighlightBlock(
                 selectedSlug = state.selectedAward?.slug.orEmpty(),
                 language = state.language,
@@ -184,9 +190,9 @@ private fun CenteredBox(content: @Composable () -> Unit) {
 
 private fun heroDimGradient(): Brush = Brush.verticalGradient(
     colorStops = arrayOf(
-        0.0f to Color(0x9900101A),
-        0.7f to Color(0xCC00101A),
-        1.0f to Color(0xFF00101A),
+        0.0f to Color(0x3600101A),
+        0.7f to Color(0x6D00101A),
+        1.0f to Color(0xA900101A),
     ),
 )
 

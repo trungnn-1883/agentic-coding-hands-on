@@ -85,6 +85,8 @@
     <string name="kudos_pager_indicator">%1$d/%2$d</string>
     <string name="kudos_spotlight_title">SPOTLIGHT BOARD</string>
     <string name="kudos_spotlight_count">388 KUDOS</string>
+    <string name="kudos_spotlight_search">Tìm Sunner</string>
+    <string name="kudos_spotlight_ticker">08:30PM Nguyễn Bá Chức đã nhận được một Kudos mới</string>
     <string name="kudos_all_title">ALL KUDOS</string>
     <string name="kudos_stats_received">Số Kudos bạn nhận được:</string>
     <string name="kudos_stats_sent">Số Kudos bạn đã gửi:</string>

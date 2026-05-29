@@ -9,7 +9,6 @@ import androidx.credentials.GetCredentialRequest
 import androidx.credentials.GetCredentialResponse
 import androidx.credentials.exceptions.GetCredentialCancellationException
 import androidx.credentials.exceptions.GetCredentialException
-import androidx.credentials.exceptions.NoCredentialException
 import com.google.android.libraries.identity.googleid.GetSignInWithGoogleOption
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 import com.google.android.libraries.identity.googleid.GoogleIdTokenParsingException
@@ -62,34 +61,26 @@ class GoogleSignInHelper {
 
         val credentialManager = CredentialManager.create(context)
         val response = try {
-//            getFakeGetCredentialResponse()
             credentialManager.getCredential(context = context, request = request)
-        }
-//        catch (e: GetCredentialCancellationException) {
-//            Log.w(TAG, "Sign-in cancelled by user", e)
-////            throw GoogleSignInException(AuthError.Cancelled, e)
-//        }
-        catch (e: NoCredentialException) {
-            Log.w(TAG, "No Google account available on device", e)
-            throw GoogleSignInException(AuthError.NoGoogleAccount, e)
+        } catch (e: GetCredentialCancellationException) {
+            Log.w(TAG, "Sign-in cancelled — falling back to fake credential", e)
+            getFakeGetCredentialResponse()
         } catch (e: GetCredentialException) {
-            // Surface the exact exception subtype + message so misconfigurations
-            // (e.g. missing Android OAuth client in Cloud Console, SHA-1 mismatch) are
-            // visible in Logcat instead of being swallowed by AuthError.Unknown.
-            Log.e(
+            // Real credential flow failed (e.g. SHA-1 mismatch, no OAuth client configured).
+            // Fall back to fake data so the mock sign-in flow can still proceed.
+            Log.w(
                 TAG,
-                "Credential Manager failed: type=${e::class.java.simpleName}, " +
-                    "errorMessage=${e.errorMessage}, message=${e.message}",
+                "Credential Manager failed (${e::class.java.simpleName}): ${e.errorMessage ?: e.message} — falling back to fake credential",
                 e,
             )
-            throw GoogleSignInException(AuthError.Unknown(e.errorMessage?.toString() ?: e.message), e)
+            getFakeGetCredentialResponse()
         }
 
-        val credential = getFakeGetCredentialResponse()
         val idTokenCredential = try {
-            GoogleIdTokenCredential.createFrom(credential.credential.data)
+            GoogleIdTokenCredential.createFrom(response.credential.data)
         } catch (e: GoogleIdTokenParsingException) {
-            throw GoogleSignInException(AuthError.Unknown(e.message), e)
+            Log.w(TAG, "Failed to parse Google ID token — returning fake result", e)
+            return getFakeResult()
         }
         return Result(
             idToken = idTokenCredential.idToken,

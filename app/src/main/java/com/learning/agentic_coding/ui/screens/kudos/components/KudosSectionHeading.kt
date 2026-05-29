@@ -45,8 +45,8 @@ fun KudosSectionHeading(title: String, modifier: Modifier = Modifier) {
         Text(
             text = title,
             color = colorResource(R.color.saa_button_yellow),
-            fontSize = 28.sp,
-            fontWeight = FontWeight.Black,
+            fontSize = 22.sp,
+            fontWeight = FontWeight.Medium,
             letterSpacing = (-0.5).sp,
         )
     }

@@ -1,13 +1,12 @@
 package com.learning.agentic_coding.ui.screens.home.components
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -18,11 +17,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.learning.agentic_coding.R
@@ -42,34 +39,32 @@ fun HomeFab(
     val debouncedKudos = rememberDebounced(onKudosClick)
     Row(
         modifier = modifier
-            .height(56.dp)
-            .clip(RoundedCornerShape(28.dp))
+            .height(48.dp)
+            .clip(RoundedCornerShape(percent = 50))
             .background(colorResource(R.color.saa_button_yellow))
-            .padding(horizontal = 8.dp),
+            .padding(horizontal = 4.dp),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(4.dp),
+        horizontalArrangement = Arrangement.spacedBy(0.dp),
     ) {
-        IconButton(onClick = debouncedPen, modifier = Modifier.size(40.dp)) {
+        IconButton(onClick = debouncedPen, modifier = Modifier.size(36.dp)) {
             Icon(
                 painter = painterResource(R.drawable.ic_pen),
                 contentDescription = stringResource(R.string.home_fab_pen_cd),
                 tint = colorResource(R.color.saa_text_on_button),
-                modifier = Modifier.size(24.dp),
+                modifier = Modifier.size(22.dp),
             )
         }
-        Box(
-            modifier = Modifier
-                .width(1.dp)
-                .height(20.dp)
-                .background(Color(0x33000000)),
+        // Diagonal slash separator (spec mms_6: Montserrat "/" char, dark on yellow).
+        Text(
+            text = "/",
+            color = colorResource(R.color.saa_text_on_button),
+            fontSize = 22.sp,
         )
-        IconButton(onClick = debouncedKudos, modifier = Modifier.size(40.dp)) {
-            Text(
-                text = "S",
-                color = colorResource(R.color.saa_badge_red),
-                fontSize = 24.sp,
-                fontWeight = FontWeight.Black,
-                fontStyle = androidx.compose.ui.text.font.FontStyle.Italic,
+        IconButton(onClick = debouncedKudos, modifier = Modifier.size(36.dp)) {
+            Image(
+                painter = painterResource(R.drawable.ic_kudos_flame),
+                contentDescription = stringResource(R.string.home_fab_kudos_cd),
+                modifier = Modifier.size(22.dp),
             )
         }
     }

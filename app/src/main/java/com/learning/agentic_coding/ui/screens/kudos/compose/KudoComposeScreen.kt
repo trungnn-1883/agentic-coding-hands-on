@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -16,7 +17,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.verticalScroll
@@ -557,25 +557,20 @@ private fun AnonymousToggleRow(isChecked: Boolean, onToggle: () -> Unit) {
 
 @Composable
 private fun ActionButtonsRow(isSubmitting: Boolean, onCancel: () -> Unit, onSubmit: () -> Unit) {
+    // Aligned with the app design system: secondary = olive-bordered yellow-tint
+    // pill (same treatment as compose prompt + filter dropdowns); primary = solid
+    // yellow with dark text.
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        ActionButton(
+        SecondaryActionButton(
             label = stringResource(R.string.kudo_compose_cancel),
-            background = Color.Black,
-            textColor = Color.White,
-            iconRes = R.drawable.ic_arrow_back,
-            iconText = "×",
             modifier = Modifier.weight(1f),
             onClick = onCancel,
         )
-        ActionButton(
+        PrimaryActionButton(
             label = stringResource(R.string.kudo_compose_send),
-            background = colorResource(R.color.saa_button_yellow),
-            textColor = colorResource(R.color.saa_text_on_button),
-            iconRes = R.drawable.ic_send_arrow,
-            iconText = "▸",
             modifier = Modifier.weight(1f),
             enabled = !isSubmitting,
             onClick = onSubmit,
@@ -584,42 +579,74 @@ private fun ActionButtonsRow(isSubmitting: Boolean, onCancel: () -> Unit, onSubm
 }
 
 @Composable
-private fun ActionButton(
+private fun SecondaryActionButton(
     label: String,
-    background: Color,
-    textColor: Color,
-    iconRes: Int,
-    iconText: String,
     modifier: Modifier = Modifier,
-    enabled: Boolean = true,
     onClick: () -> Unit,
 ) {
-    val rowMod = if (enabled) Modifier.clickable(onClick = onClick) else Modifier
+    val tint = colorResource(R.color.saa_text_primary)
     Row(
         modifier = modifier
             .height(44.dp)
-            .clip(RoundedCornerShape(22.dp))
-            .background(background.copy(alpha = if (enabled) 1f else 0.5f))
-            .then(rowMod)
+            .clip(RoundedCornerShape(8.dp))
+            .background(colorResource(R.color.saa_kudos_yellow_tint_10))
+            .border(
+                width = 1.dp,
+                color = colorResource(R.color.saa_kudos_border_olive),
+                shape = RoundedCornerShape(8.dp),
+            )
+            .clickable(onClick = onClick)
             .padding(horizontal = 16.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center,
     ) {
         Text(
             text = label,
-            color = textColor,
+            color = tint,
             fontSize = 14.sp,
             fontWeight = FontWeight.SemiBold,
         )
-        Spacer(modifier = Modifier.size(8.dp))
-        Box(
-            modifier = Modifier
-                .size(18.dp)
-                .clip(CircleShape)
-                .background(Color.White.copy(alpha = 0.2f)),
-            contentAlignment = Alignment.Center,
-        ) {
-            Text(text = iconText, color = textColor, fontSize = 12.sp, fontWeight = FontWeight.Bold)
-        }
+        Spacer(modifier = Modifier.width(8.dp))
+        Icon(
+            painter = painterResource(R.drawable.ic_close),
+            contentDescription = null,
+            tint = tint,
+            modifier = Modifier.size(16.dp),
+        )
+    }
+}
+
+@Composable
+private fun PrimaryActionButton(
+    label: String,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    onClick: () -> Unit,
+) {
+    val clickMod = if (enabled) Modifier.clickable(onClick = onClick) else Modifier
+    val tint = colorResource(R.color.saa_text_on_button)
+    Row(
+        modifier = modifier
+            .height(44.dp)
+            .clip(RoundedCornerShape(8.dp))
+            .background(colorResource(R.color.saa_button_yellow).copy(alpha = if (enabled) 1f else 0.5f))
+            .then(clickMod)
+            .padding(horizontal = 16.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center,
+    ) {
+        Text(
+            text = label,
+            color = tint,
+            fontSize = 14.sp,
+            fontWeight = FontWeight.SemiBold,
+        )
+        Spacer(modifier = Modifier.width(8.dp))
+        Icon(
+            painter = painterResource(R.drawable.ic_paper_plane),
+            contentDescription = null,
+            tint = tint,
+            modifier = Modifier.size(16.dp),
+        )
     }
 }

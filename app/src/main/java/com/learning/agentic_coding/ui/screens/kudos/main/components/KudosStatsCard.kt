@@ -20,9 +20,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -78,6 +81,9 @@ private fun StatsRow(label: String, value: String) {
 
 @Composable
 private fun HeartsRow(value: Int, multiplier: Int) {
+    // Figma mms_D.1.4: label (left) — sticker (in the empty middle) — value (right).
+    // Wrapping the sticker in a weighted, centered Box lets it sit visually in the
+    // gap, not glued to the number.
     Row(
         modifier = Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
@@ -87,45 +93,55 @@ private fun HeartsRow(value: Int, multiplier: Int) {
             color = colorResource(R.color.saa_text_primary),
             fontSize = 13.sp,
             fontWeight = FontWeight.Medium,
-            modifier = Modifier.weight(1f),
         )
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
+        Box(
+            modifier = Modifier.weight(1f),
+            contentAlignment = Alignment.Center,
         ) {
             HeartsMultiplierPill(multiplier = multiplier)
-            Text(
-                text = value.toString(),
-                color = colorResource(R.color.saa_award_label_gold),
-                fontSize = 14.sp,
-                fontWeight = FontWeight.Bold,
-            )
         }
+        Text(
+            text = value.toString(),
+            color = colorResource(R.color.saa_award_label_gold),
+            fontSize = 14.sp,
+            fontWeight = FontWeight.Bold,
+        )
     }
 }
 
 @Composable
 private fun HeartsMultiplierPill(multiplier: Int) {
+    // Figma mms_S_Group 435: organic flame sticker w/ "x2" overlay. Enlarged to
+    // 32×38dp and recolored to warm orange (saa_gradient_orange) to match Figma
+    // — the raster sticker is orange, not the red rounded pill we had before.
+    // The "x2" sits centered with a black stroke layer behind a white fill copy.
     Box(
-        modifier = Modifier
-            .clip(RoundedCornerShape(10.dp))
-            .background(colorResource(R.color.saa_kudos_hashtag_red))
-            .padding(horizontal = 8.dp, vertical = 2.dp),
+        modifier = Modifier.size(width = 32.dp, height = 38.dp),
+        contentAlignment = Alignment.Center,
     ) {
-        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(2.dp)) {
-            Icon(
-                painter = painterResource(R.drawable.ic_flame),
-                contentDescription = null,
-                tint = colorResource(R.color.saa_button_yellow),
-                modifier = Modifier.size(12.dp),
-            )
-            Text(
-                text = stringResource(R.string.kudos_stats_multiplier, multiplier),
-                color = colorResource(R.color.saa_text_primary),
-                fontSize = 11.sp,
-                fontWeight = FontWeight.Bold,
-            )
-        }
+        Icon(
+            painter = painterResource(R.drawable.ic_flame),
+            contentDescription = null,
+            tint = colorResource(R.color.saa_gradient_orange),
+            modifier = Modifier.size(width = 32.dp, height = 38.dp),
+        )
+        val text = stringResource(R.string.kudos_stats_multiplier, multiplier)
+        // Black outline drawn first (slightly wider stroke for the larger sticker).
+        Text(
+            text = text,
+            style = TextStyle(
+                color = colorResource(R.color.saa_text_on_button),
+                fontSize = 13.sp,
+                fontWeight = FontWeight.Black,
+                drawStyle = Stroke(width = 3f),
+            ),
+        )
+        Text(
+            text = text,
+            color = Color.White,
+            fontSize = 13.sp,
+            fontWeight = FontWeight.Black,
+        )
     }
 }
 

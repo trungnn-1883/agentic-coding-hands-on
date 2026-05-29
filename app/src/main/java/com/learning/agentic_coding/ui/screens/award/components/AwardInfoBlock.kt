@@ -183,7 +183,7 @@ private fun StatTitleRow(iconRes: Int, label: String) {
         Icon(
             painter = painterResource(iconRes),
             contentDescription = null,
-            tint = colorResource(R.color.saa_award_label_gold),
+            tint = colorResource(R.color.white),
             modifier = Modifier.size(24.dp),
         )
         Text(

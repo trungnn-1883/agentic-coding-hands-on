@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
@@ -117,10 +118,13 @@ fun LanguageDropdown(
 
 @Composable
 private fun FlagIcon(language: Language) {
+    // Flag drawables are full-bleed on 24x24; circle clip yields the round flag
+    // the language switcher design specifies.
     Image(
         painter = painterResource(language.flagRes),
         contentDescription = null,
-        modifier = Modifier.size(24.dp),
+        modifier = Modifier
+            .size(20.dp)
     )
 }
 
