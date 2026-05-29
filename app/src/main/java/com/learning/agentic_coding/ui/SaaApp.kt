@@ -14,6 +14,9 @@ import com.learning.agentic_coding.data.locale.LocalizedContent
 import com.learning.agentic_coding.domain.Language
 import com.learning.agentic_coding.ui.screens.award.AwardDetailRoute
 import com.learning.agentic_coding.ui.screens.award.AwardDetailViewModel
+import com.learning.agentic_coding.ui.screens.debug.DebugMenuScreen
+import com.learning.agentic_coding.ui.screens.error.AccessDeniedScreen
+import com.learning.agentic_coding.ui.screens.error.NotFoundScreen
 import com.learning.agentic_coding.ui.screens.home.HomeRoute
 import com.learning.agentic_coding.ui.screens.home.HomeViewModel
 import com.learning.agentic_coding.ui.screens.home.components.HomeTab
@@ -88,6 +91,7 @@ fun SaaApp(services: ServiceLocator) {
     // Back targets for screens that can be reached from multiple entry points.
     var notificationsBack by remember { mutableStateOf<AppDestination>(AppDestination.Home) }
     var communityStandardsBack by remember { mutableStateOf<AppDestination>(AppDestination.KudoCompose) }
+    var errorBack by remember { mutableStateOf<AppDestination>(AppDestination.DebugMenu) }
 
     MyApplicationTheme {
         LocalizedContent(language = language) {
@@ -100,8 +104,16 @@ fun SaaApp(services: ServiceLocator) {
                     HomeTab.SAA -> AppDestination.Home
                     HomeTab.AWARDS -> AppDestination.AwardDetail(DEFAULT_AWARD_SLUG)
                     HomeTab.KUDOS -> AppDestination.KudosHome
-                    HomeTab.PROFILE -> destination
+                    HomeTab.PROFILE -> AppDestination.DebugMenu
                 }
+            }
+            val openNotFound: () -> Unit = {
+                errorBack = destination
+                destination = AppDestination.NotFound
+            }
+            val openAccessDenied: () -> Unit = {
+                errorBack = destination
+                destination = AppDestination.AccessDenied
             }
             val openKudoDetail: (String) -> Unit = { id ->
                 kudoDetailBack = destination
@@ -260,6 +272,19 @@ fun SaaApp(services: ServiceLocator) {
                     onClose = { destination = AppDestination.KudosHome },
                     onWriteKudos = { destination = AppDestination.KudoCompose },
                 )
+                is AppDestination.DebugMenu -> DebugMenuScreen(
+                    onBack = { destination = AppDestination.Home },
+                    onOpenNotFound = openNotFound,
+                    onOpenAccessDenied = openAccessDenied,
+                )
+                is AppDestination.NotFound -> NotFoundScreen(
+                    onBack = { destination = errorBack },
+                    onGoHome = { destination = AppDestination.Home },
+                )
+                is AppDestination.AccessDenied -> AccessDeniedScreen(
+                    onBack = { destination = errorBack },
+                    onGoHome = { destination = AppDestination.Home },
+                )
                 is AppDestination.OpenBox -> {
                     val openBoxFactory = viewModelFactory {
                         initializer { OpenBoxViewModel(kudosRepository = services.kudosRepository) }
@@ -297,4 +322,7 @@ sealed interface AppDestination {
     data object Rules : AppDestination
     data object OpenBox : AppDestination
     data object Notifications : AppDestination
+    data object DebugMenu : AppDestination
+    data object NotFound : AppDestination
+    data object AccessDenied : AppDestination
 }
